@@ -9,17 +9,29 @@ class TaskSpec
      */
     protected $containerSpec;
     /**
-     * @var TaskSpecResourceRequirements
+     * @var int
+     */
+    protected $forceUpdate;
+    /**
+     * @var LogDriver
+     */
+    protected $logDriver;
+    /**
+     * @var Networks[]
+     */
+    protected $networks;
+    /**
+     * @var Placement
+     */
+    protected $placement;
+    /**
+     * @var Resources
      */
     protected $resources;
     /**
-     * @var TaskSpecRestartPolicy
+     * @var RestartPolicy
      */
     protected $restartPolicy;
-    /**
-     * @var TaskSpecPlacement
-     */
-    protected $placement;
 
     /**
      * @return ContainerSpec
@@ -42,47 +54,67 @@ class TaskSpec
     }
 
     /**
-     * @return TaskSpecResourceRequirements
+     * @return int
      */
-    public function getResources()
+    public function getForceUpdate()
     {
-        return $this->resources;
+        return $this->forceUpdate;
     }
 
     /**
-     * @param TaskSpecResourceRequirements $resources
+     * @param int $forceUpdate
      *
      * @return self
      */
-    public function setResources(TaskSpecResourceRequirements $resources = null)
+    public function setForceUpdate($forceUpdate = null)
     {
-        $this->resources = $resources;
+        $this->forceUpdate = $forceUpdate;
 
         return $this;
     }
 
     /**
-     * @return TaskSpecRestartPolicy
+     * @return LogDriver
      */
-    public function getRestartPolicy()
+    public function getLogDriver()
     {
-        return $this->restartPolicy;
+        return $this->logDriver;
     }
 
     /**
-     * @param TaskSpecRestartPolicy $restartPolicy
+     * @param LogDriver $logDriver
      *
      * @return self
      */
-    public function setRestartPolicy(TaskSpecRestartPolicy $restartPolicy = null)
+    public function setLogDriver(LogDriver $logDriver = null)
     {
-        $this->restartPolicy = $restartPolicy;
+        $this->logDriver = $logDriver;
 
         return $this;
     }
 
     /**
-     * @return TaskSpecPlacement
+     * @return Networks[]
+     */
+    public function getNetworks()
+    {
+        return $this->networks;
+    }
+
+    /**
+     * @param Networks[] $networks
+     *
+     * @return self
+     */
+    public function setNetworks(array $networks = null)
+    {
+        $this->networks = $networks;
+
+        return $this;
+    }
+
+    /**
+     * @return Placement
      */
     public function getPlacement()
     {
@@ -90,13 +122,53 @@ class TaskSpec
     }
 
     /**
-     * @param TaskSpecPlacement $placement
+     * @param Placement $placement
      *
      * @return self
      */
-    public function setPlacement(TaskSpecPlacement $placement = null)
+    public function setPlacement(Placement $placement = null)
     {
         $this->placement = $placement;
+
+        return $this;
+    }
+
+    /**
+     * @return Resources
+     */
+    public function getResources()
+    {
+        return $this->resources;
+    }
+
+    /**
+     * @param Resources $resources
+     *
+     * @return self
+     */
+    public function setResources(Resources $resources = null)
+    {
+        $this->resources = $resources;
+
+        return $this;
+    }
+
+    /**
+     * @return RestartPolicy
+     */
+    public function getRestartPolicy()
+    {
+        return $this->restartPolicy;
+    }
+
+    /**
+     * @param RestartPolicy $restartPolicy
+     *
+     * @return self
+     */
+    public function setRestartPolicy(RestartPolicy $restartPolicy = null)
+    {
+        $this->restartPolicy = $restartPolicy;
 
         return $this;
     }

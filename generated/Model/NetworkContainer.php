@@ -7,15 +7,7 @@ class NetworkContainer
     /**
      * @var string
      */
-    protected $name;
-    /**
-     * @var string
-     */
     protected $endpointID;
-    /**
-     * @var string
-     */
-    protected $macAddress;
     /**
      * @var string
      */
@@ -24,26 +16,10 @@ class NetworkContainer
      * @var string
      */
     protected $iPv6Address;
-
     /**
-     * @return string
+     * @var string
      */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return self
-     */
-    public function setName($name = null)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
+    protected $macAddress;
 
     /**
      * @return string
@@ -61,26 +37,6 @@ class NetworkContainer
     public function setEndpointID($endpointID = null)
     {
         $this->endpointID = $endpointID;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMacAddress()
-    {
-        return $this->macAddress;
-    }
-
-    /**
-     * @param string $macAddress
-     *
-     * @return self
-     */
-    public function setMacAddress($macAddress = null)
-    {
-        $this->macAddress = $macAddress;
 
         return $this;
     }
@@ -121,6 +77,26 @@ class NetworkContainer
     public function setIPv6Address($iPv6Address = null)
     {
         $this->iPv6Address = $iPv6Address;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMacAddress()
+    {
+        return $this->macAddress;
+    }
+
+    /**
+     * @param string $macAddress
+     *
+     * @return self
+     */
+    public function setMacAddress($macAddress = null)
+    {
+        $this->macAddress = $macAddress;
 
         return $this;
     }

@@ -91,7 +91,7 @@ class SwarmResource extends Resource
      * @param array                               $parameters        {
      *
      *     @var int $version The version number of the swarm object being updated. This is required to avoid conflicting writes.
-     *     @var bool $rotateWorkerToken Set to true (or 1) to rotate the worker join token.
+     *     @var bool $rotateWorkerToken set to true (or 1) to rotate the worker join token
      *     @var bool $rotateManagerToken Set to true (or 1) to rotate the manager join token.
      * }
      *

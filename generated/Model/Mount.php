@@ -5,56 +5,76 @@ namespace Docker\API\Model;
 class Mount
 {
     /**
-     * @var string
+     * @var BindOptions
      */
-    protected $name;
+    protected $bindOptions;
     /**
-     * @var string
+     * @var bool
+     */
+    protected $readOnly;
+    /**
+     * @var mixed
      */
     protected $source;
     /**
      * @var string
      */
-    protected $destination;
+    protected $target;
+    /**
+     * @var TmpfsOptions
+     */
+    protected $tmpfsOptions;
     /**
      * @var string
      */
-    protected $driver;
+    protected $type;
     /**
-     * @var string
+     * @var VolumeOptions
      */
-    protected $mode;
-    /**
-     * @var bool
-     */
-    protected $rW;
-    /**
-     * @var string
-     */
-    protected $propagation;
+    protected $volumeOptions;
 
     /**
-     * @return string
+     * @return BindOptions
      */
-    public function getName()
+    public function getBindOptions()
     {
-        return $this->name;
+        return $this->bindOptions;
     }
 
     /**
-     * @param string $name
+     * @param BindOptions $bindOptions
      *
      * @return self
      */
-    public function setName($name = null)
+    public function setBindOptions(BindOptions $bindOptions = null)
     {
-        $this->name = $name;
+        $this->bindOptions = $bindOptions;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return bool
+     */
+    public function getReadOnly()
+    {
+        return $this->readOnly;
+    }
+
+    /**
+     * @param bool $readOnly
+     *
+     * @return self
+     */
+    public function setReadOnly($readOnly = null)
+    {
+        $this->readOnly = $readOnly;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
      */
     public function getSource()
     {
@@ -62,7 +82,7 @@ class Mount
     }
 
     /**
-     * @param string $source
+     * @param mixed $source
      *
      * @return self
      */
@@ -76,19 +96,39 @@ class Mount
     /**
      * @return string
      */
-    public function getDestination()
+    public function getTarget()
     {
-        return $this->destination;
+        return $this->target;
     }
 
     /**
-     * @param string $destination
+     * @param string $target
      *
      * @return self
      */
-    public function setDestination($destination = null)
+    public function setTarget($target = null)
     {
-        $this->destination = $destination;
+        $this->target = $target;
+
+        return $this;
+    }
+
+    /**
+     * @return TmpfsOptions
+     */
+    public function getTmpfsOptions()
+    {
+        return $this->tmpfsOptions;
+    }
+
+    /**
+     * @param TmpfsOptions $tmpfsOptions
+     *
+     * @return self
+     */
+    public function setTmpfsOptions(TmpfsOptions $tmpfsOptions = null)
+    {
+        $this->tmpfsOptions = $tmpfsOptions;
 
         return $this;
     }
@@ -96,79 +136,39 @@ class Mount
     /**
      * @return string
      */
-    public function getDriver()
+    public function getType()
     {
-        return $this->driver;
+        return $this->type;
     }
 
     /**
-     * @param string $driver
+     * @param string $type
      *
      * @return self
      */
-    public function setDriver($driver = null)
+    public function setType($type = null)
     {
-        $this->driver = $driver;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return VolumeOptions
      */
-    public function getMode()
+    public function getVolumeOptions()
     {
-        return $this->mode;
+        return $this->volumeOptions;
     }
 
     /**
-     * @param string $mode
+     * @param VolumeOptions $volumeOptions
      *
      * @return self
      */
-    public function setMode($mode = null)
+    public function setVolumeOptions(VolumeOptions $volumeOptions = null)
     {
-        $this->mode = $mode;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getRW()
-    {
-        return $this->rW;
-    }
-
-    /**
-     * @param bool $rW
-     *
-     * @return self
-     */
-    public function setRW($rW = null)
-    {
-        $this->rW = $rW;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPropagation()
-    {
-        return $this->propagation;
-    }
-
-    /**
-     * @param string $propagation
-     *
-     * @return self
-     */
-    public function setPropagation($propagation = null)
-    {
-        $this->propagation = $propagation;
+        $this->volumeOptions = $volumeOptions;
 
         return $this;
     }

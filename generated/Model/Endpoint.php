@@ -5,17 +5,37 @@ namespace Docker\API\Model;
 class Endpoint
 {
     /**
+     * @var EndpointPortConfig[]
+     */
+    protected $ports;
+    /**
      * @var EndpointSpec
      */
     protected $spec;
     /**
-     * @var PortConfig[]|null
-     */
-    protected $exposedPorts;
-    /**
-     * @var EndpointVirtualIP[]|null
+     * @var VirtualIPs[]
      */
     protected $virtualIPs;
+
+    /**
+     * @return EndpointPortConfig[]
+     */
+    public function getPorts()
+    {
+        return $this->ports;
+    }
+
+    /**
+     * @param EndpointPortConfig[] $ports
+     *
+     * @return self
+     */
+    public function setPorts(array $ports = null)
+    {
+        $this->ports = $ports;
+
+        return $this;
+    }
 
     /**
      * @return EndpointSpec
@@ -38,27 +58,7 @@ class Endpoint
     }
 
     /**
-     * @return PortConfig[]|null
-     */
-    public function getExposedPorts()
-    {
-        return $this->exposedPorts;
-    }
-
-    /**
-     * @param PortConfig[]|null $exposedPorts
-     *
-     * @return self
-     */
-    public function setExposedPorts($exposedPorts = null)
-    {
-        $this->exposedPorts = $exposedPorts;
-
-        return $this;
-    }
-
-    /**
-     * @return EndpointVirtualIP[]|null
+     * @return VirtualIPs[]
      */
     public function getVirtualIPs()
     {
@@ -66,11 +66,11 @@ class Endpoint
     }
 
     /**
-     * @param EndpointVirtualIP[]|null $virtualIPs
+     * @param VirtualIPs[] $virtualIPs
      *
      * @return self
      */
-    public function setVirtualIPs($virtualIPs = null)
+    public function setVirtualIPs(array $virtualIPs = null)
     {
         $this->virtualIPs = $virtualIPs;
 

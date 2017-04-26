@@ -7,62 +7,22 @@ class UpdateStatus
     /**
      * @var string
      */
-    protected $state;
-    /**
-     * @var \DateTime
-     */
-    protected $startedAt;
-    /**
-     * @var \DateTime
-     */
     protected $completedAt;
     /**
      * @var string
      */
     protected $message;
+    /**
+     * @var string
+     */
+    protected $startedAt;
+    /**
+     * @var string
+     */
+    protected $state;
 
     /**
      * @return string
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * @param string $state
-     *
-     * @return self
-     */
-    public function setState($state = null)
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getStartedAt()
-    {
-        return $this->startedAt;
-    }
-
-    /**
-     * @param \DateTime $startedAt
-     *
-     * @return self
-     */
-    public function setStartedAt(\DateTime $startedAt = null)
-    {
-        $this->startedAt = $startedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
      */
     public function getCompletedAt()
     {
@@ -70,11 +30,11 @@ class UpdateStatus
     }
 
     /**
-     * @param \DateTime $completedAt
+     * @param string $completedAt
      *
      * @return self
      */
-    public function setCompletedAt(\DateTime $completedAt = null)
+    public function setCompletedAt($completedAt = null)
     {
         $this->completedAt = $completedAt;
 
@@ -97,6 +57,46 @@ class UpdateStatus
     public function setMessage($message = null)
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStartedAt()
+    {
+        return $this->startedAt;
+    }
+
+    /**
+     * @param string $startedAt
+     *
+     * @return self
+     */
+    public function setStartedAt($startedAt = null)
+    {
+        $this->startedAt = $startedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param string $state
+     *
+     * @return self
+     */
+    public function setState($state = null)
+    {
+        $this->state = $state;
 
         return $this;
     }

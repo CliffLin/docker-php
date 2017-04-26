@@ -5,13 +5,33 @@ namespace Docker\API\Model;
 class GraphDriver
 {
     /**
+     * @var string[]
+     */
+    protected $data;
+    /**
      * @var string
      */
     protected $name;
+
     /**
-     * @var mixed
+     * @return string[]
      */
-    protected $data;
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param string[] $data
+     *
+     * @return self
+     */
+    public function setData(\ArrayObject $data = null)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -29,26 +49,6 @@ class GraphDriver
     public function setName($name = null)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * @param mixed $data
-     *
-     * @return self
-     */
-    public function setData($data = null)
-    {
-        $this->data = $data;
 
         return $this;
     }

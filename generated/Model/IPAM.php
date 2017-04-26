@@ -5,17 +5,37 @@ namespace Docker\API\Model;
 class IPAM
 {
     /**
+     * @var string[][]
+     */
+    protected $config;
+    /**
      * @var string
      */
     protected $driver;
     /**
-     * @var IPAMConfig[]|null
-     */
-    protected $config;
-    /**
-     * @var string[]|null
+     * @var string[][]
      */
     protected $options;
+
+    /**
+     * @return string[][]
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param string[][] $config
+     *
+     * @return self
+     */
+    public function setConfig(array $config = null)
+    {
+        $this->config = $config;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -38,27 +58,7 @@ class IPAM
     }
 
     /**
-     * @return IPAMConfig[]|null
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
-    /**
-     * @param IPAMConfig[]|null $config
-     *
-     * @return self
-     */
-    public function setConfig($config = null)
-    {
-        $this->config = $config;
-
-        return $this;
-    }
-
-    /**
-     * @return string[]|null
+     * @return string[][]
      */
     public function getOptions()
     {
@@ -66,11 +66,11 @@ class IPAM
     }
 
     /**
-     * @param string[]|null $options
+     * @param string[][] $options
      *
      * @return self
      */
-    public function setOptions($options = null)
+    public function setOptions(array $options = null)
     {
         $this->options = $options;
 

@@ -30,34 +30,24 @@ class NodeSpecNormalizer extends SerializerAwareNormalizer implements Denormaliz
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\NodeSpec();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
+        if (property_exists($data, 'Availability')) {
+            $object->setAvailability($data->{'Availability'});
+        }
+        if (property_exists($data, 'Labels')) {
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data->{'Labels'} as $key => $value) {
+                $values[$key] = $value;
+            }
+            $object->setLabels($values);
         }
         if (property_exists($data, 'Name')) {
             $object->setName($data->{'Name'});
         }
         if (property_exists($data, 'Role')) {
             $object->setRole($data->{'Role'});
-        }
-        if (property_exists($data, 'Availability')) {
-            $object->setAvailability($data->{'Availability'});
-        }
-        if (property_exists($data, 'Labels')) {
-            $value = $data->{'Labels'};
-            if (is_object($data->{'Labels'})) {
-                $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-                foreach ($data->{'Labels'} as $key => $value_1) {
-                    $values[$key] = $value_1;
-                }
-                $value = $values;
-            }
-            if (is_null($data->{'Labels'})) {
-                $value = $data->{'Labels'};
-            }
-            $object->setLabels($value);
         }
 
         return $object;
@@ -66,27 +56,22 @@ class NodeSpecNormalizer extends SerializerAwareNormalizer implements Denormaliz
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
+        if (null !== $object->getAvailability()) {
+            $data->{'Availability'} = $object->getAvailability();
+        }
+        if (null !== $object->getLabels()) {
+            $values = new \stdClass();
+            foreach ($object->getLabels() as $key => $value) {
+                $values->{$key} = $value;
+            }
+            $data->{'Labels'} = $values;
+        }
         if (null !== $object->getName()) {
             $data->{'Name'} = $object->getName();
         }
         if (null !== $object->getRole()) {
             $data->{'Role'} = $object->getRole();
         }
-        if (null !== $object->getAvailability()) {
-            $data->{'Availability'} = $object->getAvailability();
-        }
-        $value = $object->getLabels();
-        if (is_object($object->getLabels())) {
-            $values = new \stdClass();
-            foreach ($object->getLabels() as $key => $value_1) {
-                $values->{$key} = $value_1;
-            }
-            $value = $values;
-        }
-        if (is_null($object->getLabels())) {
-            $value = $object->getLabels();
-        }
-        $data->{'Labels'} = $value;
 
         return $data;
     }

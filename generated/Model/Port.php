@@ -5,6 +5,10 @@ namespace Docker\API\Model;
 class Port
 {
     /**
+     * @var string
+     */
+    protected $iP;
+    /**
      * @var int
      */
     protected $privatePort;
@@ -16,6 +20,26 @@ class Port
      * @var string
      */
     protected $type;
+
+    /**
+     * @return string
+     */
+    public function getIP()
+    {
+        return $this->iP;
+    }
+
+    /**
+     * @param string $iP
+     *
+     * @return self
+     */
+    public function setIP($iP = null)
+    {
+        $this->iP = $iP;
+
+        return $this;
+    }
 
     /**
      * @return int

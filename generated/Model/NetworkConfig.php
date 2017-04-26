@@ -7,15 +7,15 @@ class NetworkConfig
     /**
      * @var string
      */
+    protected $address;
+    /**
+     * @var string
+     */
     protected $bridge;
     /**
      * @var string
      */
     protected $gateway;
-    /**
-     * @var string
-     */
-    protected $iPAddress;
     /**
      * @var int
      */
@@ -29,13 +29,29 @@ class NetworkConfig
      */
     protected $portMapping;
     /**
-     * @var ContainerNetwork[]
-     */
-    protected $networks;
-    /**
-     * @var PortBinding[][]|null[]|null
+     * @var Port[]
      */
     protected $ports;
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     *
+     * @return self
+     */
+    public function setAddress($address = null)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -73,26 +89,6 @@ class NetworkConfig
     public function setGateway($gateway = null)
     {
         $this->gateway = $gateway;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIPAddress()
-    {
-        return $this->iPAddress;
-    }
-
-    /**
-     * @param string $iPAddress
-     *
-     * @return self
-     */
-    public function setIPAddress($iPAddress = null)
-    {
-        $this->iPAddress = $iPAddress;
 
         return $this;
     }
@@ -158,27 +154,7 @@ class NetworkConfig
     }
 
     /**
-     * @return ContainerNetwork[]
-     */
-    public function getNetworks()
-    {
-        return $this->networks;
-    }
-
-    /**
-     * @param ContainerNetwork[] $networks
-     *
-     * @return self
-     */
-    public function setNetworks(\ArrayObject $networks = null)
-    {
-        $this->networks = $networks;
-
-        return $this;
-    }
-
-    /**
-     * @return PortBinding[][]|null[]|null
+     * @return Port[]
      */
     public function getPorts()
     {
@@ -186,11 +162,11 @@ class NetworkConfig
     }
 
     /**
-     * @param PortBinding[][]|null[]|null $ports
+     * @param Port[] $ports
      *
      * @return self
      */
-    public function setPorts($ports = null)
+    public function setPorts(array $ports = null)
     {
         $this->ports = $ports;
 

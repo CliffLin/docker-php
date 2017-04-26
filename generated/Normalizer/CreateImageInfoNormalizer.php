@@ -30,23 +30,20 @@ class CreateImageInfoNormalizer extends SerializerAwareNormalizer implements Den
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\CreateImageInfo();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
-        }
         if (property_exists($data, 'error')) {
             $object->setError($data->{'error'});
-        }
-        if (property_exists($data, 'status')) {
-            $object->setStatus($data->{'status'});
         }
         if (property_exists($data, 'progress')) {
             $object->setProgress($data->{'progress'});
         }
         if (property_exists($data, 'progressDetail')) {
             $object->setProgressDetail($this->serializer->deserialize($data->{'progressDetail'}, 'Docker\\API\\Model\\ProgressDetail', 'raw', $context));
+        }
+        if (property_exists($data, 'status')) {
+            $object->setStatus($data->{'status'});
         }
 
         return $object;
@@ -58,14 +55,14 @@ class CreateImageInfoNormalizer extends SerializerAwareNormalizer implements Den
         if (null !== $object->getError()) {
             $data->{'error'} = $object->getError();
         }
-        if (null !== $object->getStatus()) {
-            $data->{'status'} = $object->getStatus();
-        }
         if (null !== $object->getProgress()) {
             $data->{'progress'} = $object->getProgress();
         }
         if (null !== $object->getProgressDetail()) {
             $data->{'progressDetail'} = $this->serializer->serialize($object->getProgressDetail(), 'raw', $context);
+        }
+        if (null !== $object->getStatus()) {
+            $data->{'status'} = $object->getStatus();
         }
 
         return $data;

@@ -30,17 +30,20 @@ class RestartPolicyNormalizer extends SerializerAwareNormalizer implements Denor
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\RestartPolicy();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
+        if (property_exists($data, 'Condition')) {
+            $object->setCondition($data->{'Condition'});
         }
-        if (property_exists($data, 'Name')) {
-            $object->setName($data->{'Name'});
+        if (property_exists($data, 'Delay')) {
+            $object->setDelay($data->{'Delay'});
         }
-        if (property_exists($data, 'MaximumRetryCount')) {
-            $object->setMaximumRetryCount($data->{'MaximumRetryCount'});
+        if (property_exists($data, 'MaxAttempts')) {
+            $object->setMaxAttempts($data->{'MaxAttempts'});
+        }
+        if (property_exists($data, 'Window')) {
+            $object->setWindow($data->{'Window'});
         }
 
         return $object;
@@ -49,11 +52,17 @@ class RestartPolicyNormalizer extends SerializerAwareNormalizer implements Denor
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
-        if (null !== $object->getName()) {
-            $data->{'Name'} = $object->getName();
+        if (null !== $object->getCondition()) {
+            $data->{'Condition'} = $object->getCondition();
         }
-        if (null !== $object->getMaximumRetryCount()) {
-            $data->{'MaximumRetryCount'} = $object->getMaximumRetryCount();
+        if (null !== $object->getDelay()) {
+            $data->{'Delay'} = $object->getDelay();
+        }
+        if (null !== $object->getMaxAttempts()) {
+            $data->{'MaxAttempts'} = $object->getMaxAttempts();
+        }
+        if (null !== $object->getWindow()) {
+            $data->{'Window'} = $object->getWindow();
         }
 
         return $data;

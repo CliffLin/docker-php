@@ -7,35 +7,35 @@ class Volume
     /**
      * @var string
      */
-    protected $name;
-    /**
-     * @var string
-     */
     protected $driver;
+    /**
+     * @var string[]
+     */
+    protected $labels;
     /**
      * @var string
      */
     protected $mountpoint;
-
     /**
-     * @return string
+     * @var string
      */
-    public function getName()
-    {
-        return $this->name;
-    }
-
+    protected $name;
     /**
-     * @param string $name
-     *
-     * @return self
+     * @var string[]
      */
-    public function setName($name = null)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
+    protected $options;
+    /**
+     * @var string
+     */
+    protected $scope;
+    /**
+     * @var mixed[]
+     */
+    protected $status;
+    /**
+     * @var UsageData
+     */
+    protected $usageData;
 
     /**
      * @return string
@@ -58,6 +58,26 @@ class Volume
     }
 
     /**
+     * @return string[]
+     */
+    public function getLabels()
+    {
+        return $this->labels;
+    }
+
+    /**
+     * @param string[] $labels
+     *
+     * @return self
+     */
+    public function setLabels(\ArrayObject $labels = null)
+    {
+        $this->labels = $labels;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getMountpoint()
@@ -73,6 +93,106 @@ class Volume
     public function setMountpoint($mountpoint = null)
     {
         $this->mountpoint = $mountpoint;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return self
+     */
+    public function setName($name = null)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param string[] $options
+     *
+     * @return self
+     */
+    public function setOptions(\ArrayObject $options = null)
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScope()
+    {
+        return $this->scope;
+    }
+
+    /**
+     * @param string $scope
+     *
+     * @return self
+     */
+    public function setScope($scope = null)
+    {
+        $this->scope = $scope;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed[]
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed[] $status
+     *
+     * @return self
+     */
+    public function setStatus(\ArrayObject $status = null)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return UsageData
+     */
+    public function getUsageData()
+    {
+        return $this->usageData;
+    }
+
+    /**
+     * @param UsageData $usageData
+     *
+     * @return self
+     */
+    public function setUsageData(UsageData $usageData = null)
+    {
+        $this->usageData = $usageData;
 
         return $this;
     }

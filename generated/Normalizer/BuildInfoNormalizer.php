@@ -30,32 +30,29 @@ class BuildInfoNormalizer extends SerializerAwareNormalizer implements Denormali
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\BuildInfo();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
-        }
-        if (property_exists($data, 'id')) {
-            $object->setId($data->{'id'});
-        }
-        if (property_exists($data, 'stream')) {
-            $object->setStream($data->{'stream'});
-        }
         if (property_exists($data, 'error')) {
             $object->setError($data->{'error'});
         }
         if (property_exists($data, 'errorDetail')) {
             $object->setErrorDetail($this->serializer->deserialize($data->{'errorDetail'}, 'Docker\\API\\Model\\ErrorDetail', 'raw', $context));
         }
-        if (property_exists($data, 'status')) {
-            $object->setStatus($data->{'status'});
+        if (property_exists($data, 'id')) {
+            $object->setId($data->{'id'});
         }
         if (property_exists($data, 'progress')) {
             $object->setProgress($data->{'progress'});
         }
         if (property_exists($data, 'progressDetail')) {
             $object->setProgressDetail($this->serializer->deserialize($data->{'progressDetail'}, 'Docker\\API\\Model\\ProgressDetail', 'raw', $context));
+        }
+        if (property_exists($data, 'status')) {
+            $object->setStatus($data->{'status'});
+        }
+        if (property_exists($data, 'stream')) {
+            $object->setStream($data->{'stream'});
         }
 
         return $object;
@@ -64,26 +61,26 @@ class BuildInfoNormalizer extends SerializerAwareNormalizer implements Denormali
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
-        if (null !== $object->getId()) {
-            $data->{'id'} = $object->getId();
-        }
-        if (null !== $object->getStream()) {
-            $data->{'stream'} = $object->getStream();
-        }
         if (null !== $object->getError()) {
             $data->{'error'} = $object->getError();
         }
         if (null !== $object->getErrorDetail()) {
             $data->{'errorDetail'} = $this->serializer->serialize($object->getErrorDetail(), 'raw', $context);
         }
-        if (null !== $object->getStatus()) {
-            $data->{'status'} = $object->getStatus();
+        if (null !== $object->getId()) {
+            $data->{'id'} = $object->getId();
         }
         if (null !== $object->getProgress()) {
             $data->{'progress'} = $object->getProgress();
         }
         if (null !== $object->getProgressDetail()) {
             $data->{'progressDetail'} = $this->serializer->serialize($object->getProgressDetail(), 'raw', $context);
+        }
+        if (null !== $object->getStatus()) {
+            $data->{'status'} = $object->getStatus();
+        }
+        if (null !== $object->getStream()) {
+            $data->{'stream'} = $object->getStream();
         }
 
         return $data;

@@ -30,20 +30,17 @@ class NetworkConfigNormalizer extends SerializerAwareNormalizer implements Denor
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\NetworkConfig();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
+        if (property_exists($data, 'Address')) {
+            $object->setAddress($data->{'Address'});
         }
         if (property_exists($data, 'Bridge')) {
             $object->setBridge($data->{'Bridge'});
         }
         if (property_exists($data, 'Gateway')) {
             $object->setGateway($data->{'Gateway'});
-        }
-        if (property_exists($data, 'IPAddress')) {
-            $object->setIPAddress($data->{'IPAddress'});
         }
         if (property_exists($data, 'IPPrefixLen')) {
             $object->setIPPrefixLen($data->{'IPPrefixLen'});
@@ -54,37 +51,12 @@ class NetworkConfigNormalizer extends SerializerAwareNormalizer implements Denor
         if (property_exists($data, 'PortMapping')) {
             $object->setPortMapping($data->{'PortMapping'});
         }
-        if (property_exists($data, 'Networks')) {
-            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data->{'Networks'} as $key => $value) {
-                $values[$key] = $this->serializer->deserialize($value, 'Docker\\API\\Model\\ContainerNetwork', 'raw', $context);
-            }
-            $object->setNetworks($values);
-        }
         if (property_exists($data, 'Ports')) {
-            $value_1 = $data->{'Ports'};
-            if (is_object($data->{'Ports'})) {
-                $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-                foreach ($data->{'Ports'} as $key_1 => $value_2) {
-                    $value_3 = $value_2;
-                    if (is_array($value_2)) {
-                        $values_2 = [];
-                        foreach ($value_2 as $value_4) {
-                            $values_2[] = $this->serializer->deserialize($value_4, 'Docker\\API\\Model\\PortBinding', 'raw', $context);
-                        }
-                        $value_3 = $values_2;
-                    }
-                    if (is_null($value_2)) {
-                        $value_3 = $value_2;
-                    }
-                    $values_1[$key_1] = $value_3;
-                }
-                $value_1 = $values_1;
+            $values = [];
+            foreach ($data->{'Ports'} as $value) {
+                $values[] = $this->serializer->deserialize($value, 'Docker\\API\\Model\\Port', 'raw', $context);
             }
-            if (is_null($data->{'Ports'})) {
-                $value_1 = $data->{'Ports'};
-            }
-            $object->setPorts($value_1);
+            $object->setPorts($values);
         }
 
         return $object;
@@ -93,14 +65,14 @@ class NetworkConfigNormalizer extends SerializerAwareNormalizer implements Denor
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
+        if (null !== $object->getAddress()) {
+            $data->{'Address'} = $object->getAddress();
+        }
         if (null !== $object->getBridge()) {
             $data->{'Bridge'} = $object->getBridge();
         }
         if (null !== $object->getGateway()) {
             $data->{'Gateway'} = $object->getGateway();
-        }
-        if (null !== $object->getIPAddress()) {
-            $data->{'IPAddress'} = $object->getIPAddress();
         }
         if (null !== $object->getIPPrefixLen()) {
             $data->{'IPPrefixLen'} = $object->getIPPrefixLen();
@@ -111,36 +83,13 @@ class NetworkConfigNormalizer extends SerializerAwareNormalizer implements Denor
         if (null !== $object->getPortMapping()) {
             $data->{'PortMapping'} = $object->getPortMapping();
         }
-        if (null !== $object->getNetworks()) {
-            $values = new \stdClass();
-            foreach ($object->getNetworks() as $key => $value) {
-                $values->{$key} = $this->serializer->serialize($value, 'raw', $context);
+        if (null !== $object->getPorts()) {
+            $values = [];
+            foreach ($object->getPorts() as $value) {
+                $values[] = $this->serializer->serialize($value, 'raw', $context);
             }
-            $data->{'Networks'} = $values;
+            $data->{'Ports'} = $values;
         }
-        $value_1 = $object->getPorts();
-        if (is_object($object->getPorts())) {
-            $values_1 = new \stdClass();
-            foreach ($object->getPorts() as $key_1 => $value_2) {
-                $value_3 = $value_2;
-                if (is_array($value_2)) {
-                    $values_2 = [];
-                    foreach ($value_2 as $value_4) {
-                        $values_2[] = $this->serializer->serialize($value_4, 'raw', $context);
-                    }
-                    $value_3 = $values_2;
-                }
-                if (is_null($value_2)) {
-                    $value_3 = $value_2;
-                }
-                $values_1->{$key_1} = $value_3;
-            }
-            $value_1 = $values_1;
-        }
-        if (is_null($object->getPorts())) {
-            $value_1 = $object->getPorts();
-        }
-        $data->{'Ports'} = $value_1;
 
         return $data;
     }

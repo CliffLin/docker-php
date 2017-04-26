@@ -9,7 +9,7 @@ class EndpointSpec
      */
     protected $mode;
     /**
-     * @var PortConfig[]|null
+     * @var EndpointPortConfig[]
      */
     protected $ports;
 
@@ -34,7 +34,7 @@ class EndpointSpec
     }
 
     /**
-     * @return PortConfig[]|null
+     * @return EndpointPortConfig[]
      */
     public function getPorts()
     {
@@ -42,11 +42,11 @@ class EndpointSpec
     }
 
     /**
-     * @param PortConfig[]|null $ports
+     * @param EndpointPortConfig[] $ports
      *
      * @return self
      */
-    public function setPorts($ports = null)
+    public function setPorts(array $ports = null)
     {
         $this->ports = $ports;
 

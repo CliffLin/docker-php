@@ -30,28 +30,18 @@ class EndpointSpecNormalizer extends SerializerAwareNormalizer implements Denorm
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\EndpointSpec();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
-        }
         if (property_exists($data, 'Mode')) {
             $object->setMode($data->{'Mode'});
         }
         if (property_exists($data, 'Ports')) {
-            $value = $data->{'Ports'};
-            if (is_array($data->{'Ports'})) {
-                $values = [];
-                foreach ($data->{'Ports'} as $value_1) {
-                    $values[] = $this->serializer->deserialize($value_1, 'Docker\\API\\Model\\PortConfig', 'raw', $context);
-                }
-                $value = $values;
+            $values = [];
+            foreach ($data->{'Ports'} as $value) {
+                $values[] = $this->serializer->deserialize($value, 'Docker\\API\\Model\\EndpointPortConfig', 'raw', $context);
             }
-            if (is_null($data->{'Ports'})) {
-                $value = $data->{'Ports'};
-            }
-            $object->setPorts($value);
+            $object->setPorts($values);
         }
 
         return $object;
@@ -63,18 +53,13 @@ class EndpointSpecNormalizer extends SerializerAwareNormalizer implements Denorm
         if (null !== $object->getMode()) {
             $data->{'Mode'} = $object->getMode();
         }
-        $value = $object->getPorts();
-        if (is_array($object->getPorts())) {
+        if (null !== $object->getPorts()) {
             $values = [];
-            foreach ($object->getPorts() as $value_1) {
-                $values[] = $this->serializer->serialize($value_1, 'raw', $context);
+            foreach ($object->getPorts() as $value) {
+                $values[] = $this->serializer->serialize($value, 'raw', $context);
             }
-            $value = $values;
+            $data->{'Ports'} = $values;
         }
-        if (is_null($object->getPorts())) {
-            $value = $object->getPorts();
-        }
-        $data->{'Ports'} = $value;
 
         return $data;
     }

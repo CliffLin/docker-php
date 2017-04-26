@@ -13,10 +13,10 @@ class ContainerResource extends Resource
      * @param array $parameters {
      *
      *     @var bool $all Show all containers. Only running containers are shown by default (i.e., this defaults to false)
-     *     @var int $limit Show <limit> last created containers, include non-running ones.
-     *     @var string $since Show only containers created since Id, include non-running ones.
-     *     @var string $before Show only containers created before Id, include non-running ones.
-     *     @var bool $size 1/True/true or 0/False/false, Show the containers sizes.
+     *     @var int $limit show <limit> last created containers, include non-running ones
+     *     @var string $since show only containers created since Id, include non-running ones
+     *     @var string $before show only containers created before Id, include non-running ones
+     *     @var bool $size 1/True/true or 0/False/false, Show the containers sizes
      *     @var array $filters A JSON encoded value of the filters (a map[string][]string) to process on the containers list
      * }
      *
@@ -170,7 +170,7 @@ class ContainerResource extends Resource
      *     @var bool $stdout 1/True/true or 0/False/false, show stdout log. Default false.
      *     @var bool $stderr 1/True/true or 0/False/false, show stderr log. Default false.
      *     @var int $since UNIX timestamp (integer) to filter logs. Specifying a timestamp will only output log-entries since that timestamp. Default: 0 (unfiltered)
-     *     @var bool $timestamps 1/True/true or 0/False/false, print timestamps for every log line.
+     *     @var bool $timestamps 1/True/true or 0/False/false, print timestamps for every log line
      *     @var string $tail Output specified number of lines at the end of logs: all or <number>. Default all.
      * }
      *
@@ -797,10 +797,10 @@ class ContainerResource extends Resource
      * Upload a tar archive to be extracted to a path in the filesystem of container id.
      *
      * @param string $id          The container id or name
-     * @param string $inputStream The input stream must be a tar archive compressed with one of the following algorithms: identity (no compression), gzip, bzip2, xz.
+     * @param string $inputStream the input stream must be a tar archive compressed with one of the following algorithms: identity (no compression), gzip, bzip2, xz
      * @param array  $parameters  {
      *
-     *     @var string $path Path to a directory in the container to extract the archive’s contents into.
+     *     @var string $path path to a directory in the container to extract the archive’s contents into
      *     @var string $noOverwriteDirNonDir If “1”, “true”, or “True” then it will be an error if unpacking the given content would cause an existing directory to be replaced with a non-directory and vice versa.
      * }
      *

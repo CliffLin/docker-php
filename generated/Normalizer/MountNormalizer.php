@@ -30,32 +30,29 @@ class MountNormalizer extends SerializerAwareNormalizer implements DenormalizerI
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\Mount();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
+        if (property_exists($data, 'BindOptions')) {
+            $object->setBindOptions($this->serializer->deserialize($data->{'BindOptions'}, 'Docker\\API\\Model\\BindOptions', 'raw', $context));
         }
-        if (property_exists($data, 'Name')) {
-            $object->setName($data->{'Name'});
+        if (property_exists($data, 'ReadOnly')) {
+            $object->setReadOnly($data->{'ReadOnly'});
         }
         if (property_exists($data, 'Source')) {
             $object->setSource($data->{'Source'});
         }
-        if (property_exists($data, 'Destination')) {
-            $object->setDestination($data->{'Destination'});
+        if (property_exists($data, 'Target')) {
+            $object->setTarget($data->{'Target'});
         }
-        if (property_exists($data, 'Driver')) {
-            $object->setDriver($data->{'Driver'});
+        if (property_exists($data, 'TmpfsOptions')) {
+            $object->setTmpfsOptions($this->serializer->deserialize($data->{'TmpfsOptions'}, 'Docker\\API\\Model\\TmpfsOptions', 'raw', $context));
         }
-        if (property_exists($data, 'Mode')) {
-            $object->setMode($data->{'Mode'});
+        if (property_exists($data, 'Type')) {
+            $object->setType($data->{'Type'});
         }
-        if (property_exists($data, 'RW')) {
-            $object->setRW($data->{'RW'});
-        }
-        if (property_exists($data, 'Propagation')) {
-            $object->setPropagation($data->{'Propagation'});
+        if (property_exists($data, 'VolumeOptions')) {
+            $object->setVolumeOptions($this->serializer->deserialize($data->{'VolumeOptions'}, 'Docker\\API\\Model\\VolumeOptions', 'raw', $context));
         }
 
         return $object;
@@ -64,26 +61,26 @@ class MountNormalizer extends SerializerAwareNormalizer implements DenormalizerI
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
-        if (null !== $object->getName()) {
-            $data->{'Name'} = $object->getName();
+        if (null !== $object->getBindOptions()) {
+            $data->{'BindOptions'} = $this->serializer->serialize($object->getBindOptions(), 'raw', $context);
+        }
+        if (null !== $object->getReadOnly()) {
+            $data->{'ReadOnly'} = $object->getReadOnly();
         }
         if (null !== $object->getSource()) {
             $data->{'Source'} = $object->getSource();
         }
-        if (null !== $object->getDestination()) {
-            $data->{'Destination'} = $object->getDestination();
+        if (null !== $object->getTarget()) {
+            $data->{'Target'} = $object->getTarget();
         }
-        if (null !== $object->getDriver()) {
-            $data->{'Driver'} = $object->getDriver();
+        if (null !== $object->getTmpfsOptions()) {
+            $data->{'TmpfsOptions'} = $this->serializer->serialize($object->getTmpfsOptions(), 'raw', $context);
         }
-        if (null !== $object->getMode()) {
-            $data->{'Mode'} = $object->getMode();
+        if (null !== $object->getType()) {
+            $data->{'Type'} = $object->getType();
         }
-        if (null !== $object->getRW()) {
-            $data->{'RW'} = $object->getRW();
-        }
-        if (null !== $object->getPropagation()) {
-            $data->{'Propagation'} = $object->getPropagation();
+        if (null !== $object->getVolumeOptions()) {
+            $data->{'VolumeOptions'} = $this->serializer->serialize($object->getVolumeOptions(), 'raw', $context);
         }
 
         return $data;

@@ -11,11 +11,11 @@ class ContainerStatus
     /**
      * @var int
      */
-    protected $pID;
+    protected $exitCode;
     /**
      * @var int
      */
-    protected $exitCode;
+    protected $pID;
 
     /**
      * @return string
@@ -40,26 +40,6 @@ class ContainerStatus
     /**
      * @return int
      */
-    public function getPID()
-    {
-        return $this->pID;
-    }
-
-    /**
-     * @param int $pID
-     *
-     * @return self
-     */
-    public function setPID($pID = null)
-    {
-        $this->pID = $pID;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
     public function getExitCode()
     {
         return $this->exitCode;
@@ -73,6 +53,26 @@ class ContainerStatus
     public function setExitCode($exitCode = null)
     {
         $this->exitCode = $exitCode;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPID()
+    {
+        return $this->pID;
+    }
+
+    /**
+     * @param int $pID
+     *
+     * @return self
+     */
+    public function setPID($pID = null)
+    {
+        $this->pID = $pID;
 
         return $this;
     }

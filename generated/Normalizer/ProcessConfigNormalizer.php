@@ -30,37 +30,27 @@ class ProcessConfigNormalizer extends SerializerAwareNormalizer implements Denor
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\ProcessConfig();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
-        }
-        if (property_exists($data, 'privileged')) {
-            $object->setPrivileged($data->{'privileged'});
-        }
-        if (property_exists($data, 'user')) {
-            $object->setUser($data->{'user'});
-        }
-        if (property_exists($data, 'tty')) {
-            $object->setTty($data->{'tty'});
+        if (property_exists($data, 'arguments')) {
+            $values = [];
+            foreach ($data->{'arguments'} as $value) {
+                $values[] = $value;
+            }
+            $object->setArguments($values);
         }
         if (property_exists($data, 'entrypoint')) {
             $object->setEntrypoint($data->{'entrypoint'});
         }
-        if (property_exists($data, 'arguments')) {
-            $value = $data->{'arguments'};
-            if (is_array($data->{'arguments'})) {
-                $values = [];
-                foreach ($data->{'arguments'} as $value_1) {
-                    $values[] = $value_1;
-                }
-                $value = $values;
-            }
-            if (is_null($data->{'arguments'})) {
-                $value = $data->{'arguments'};
-            }
-            $object->setArguments($value);
+        if (property_exists($data, 'privileged')) {
+            $object->setPrivileged($data->{'privileged'});
+        }
+        if (property_exists($data, 'tty')) {
+            $object->setTty($data->{'tty'});
+        }
+        if (property_exists($data, 'user')) {
+            $object->setUser($data->{'user'});
         }
 
         return $object;
@@ -69,30 +59,25 @@ class ProcessConfigNormalizer extends SerializerAwareNormalizer implements Denor
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
-        if (null !== $object->getPrivileged()) {
-            $data->{'privileged'} = $object->getPrivileged();
-        }
-        if (null !== $object->getUser()) {
-            $data->{'user'} = $object->getUser();
-        }
-        if (null !== $object->getTty()) {
-            $data->{'tty'} = $object->getTty();
+        if (null !== $object->getArguments()) {
+            $values = [];
+            foreach ($object->getArguments() as $value) {
+                $values[] = $value;
+            }
+            $data->{'arguments'} = $values;
         }
         if (null !== $object->getEntrypoint()) {
             $data->{'entrypoint'} = $object->getEntrypoint();
         }
-        $value = $object->getArguments();
-        if (is_array($object->getArguments())) {
-            $values = [];
-            foreach ($object->getArguments() as $value_1) {
-                $values[] = $value_1;
-            }
-            $value = $values;
+        if (null !== $object->getPrivileged()) {
+            $data->{'privileged'} = $object->getPrivileged();
         }
-        if (is_null($object->getArguments())) {
-            $value = $object->getArguments();
+        if (null !== $object->getTty()) {
+            $data->{'tty'} = $object->getTty();
         }
-        $data->{'arguments'} = $value;
+        if (null !== $object->getUser()) {
+            $data->{'user'} = $object->getUser();
+        }
 
         return $data;
     }

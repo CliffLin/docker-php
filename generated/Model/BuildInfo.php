@@ -7,14 +7,6 @@ class BuildInfo
     /**
      * @var string
      */
-    protected $id;
-    /**
-     * @var string
-     */
-    protected $stream;
-    /**
-     * @var string
-     */
     protected $error;
     /**
      * @var ErrorDetail
@@ -23,7 +15,7 @@ class BuildInfo
     /**
      * @var string
      */
-    protected $status;
+    protected $id;
     /**
      * @var string
      */
@@ -32,46 +24,14 @@ class BuildInfo
      * @var ProgressDetail
      */
     protected $progressDetail;
-
     /**
-     * @return string
+     * @var string
      */
-    public function getId()
-    {
-        return $this->id;
-    }
-
+    protected $status;
     /**
-     * @param string $id
-     *
-     * @return self
+     * @var string
      */
-    public function setId($id = null)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStream()
-    {
-        return $this->stream;
-    }
-
-    /**
-     * @param string $stream
-     *
-     * @return self
-     */
-    public function setStream($stream = null)
-    {
-        $this->stream = $stream;
-
-        return $this;
-    }
+    protected $stream;
 
     /**
      * @return string
@@ -116,19 +76,19 @@ class BuildInfo
     /**
      * @return string
      */
-    public function getStatus()
+    public function getId()
     {
-        return $this->status;
+        return $this->id;
     }
 
     /**
-     * @param string $status
+     * @param string $id
      *
      * @return self
      */
-    public function setStatus($status = null)
+    public function setId($id = null)
     {
-        $this->status = $status;
+        $this->id = $id;
 
         return $this;
     }
@@ -169,6 +129,46 @@ class BuildInfo
     public function setProgressDetail(ProgressDetail $progressDetail = null)
     {
         $this->progressDetail = $progressDetail;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     *
+     * @return self
+     */
+    public function setStatus($status = null)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStream()
+    {
+        return $this->stream;
+    }
+
+    /**
+     * @param string $stream
+     *
+     * @return self
+     */
+    public function setStream($stream = null)
+    {
+        $this->stream = $stream;
 
         return $this;
     }

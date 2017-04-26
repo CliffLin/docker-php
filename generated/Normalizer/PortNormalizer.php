@@ -30,11 +30,11 @@ class PortNormalizer extends SerializerAwareNormalizer implements DenormalizerIn
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\Port();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
+        if (property_exists($data, 'IP')) {
+            $object->setIP($data->{'IP'});
         }
         if (property_exists($data, 'PrivatePort')) {
             $object->setPrivatePort($data->{'PrivatePort'});
@@ -52,6 +52,9 @@ class PortNormalizer extends SerializerAwareNormalizer implements DenormalizerIn
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
+        if (null !== $object->getIP()) {
+            $data->{'IP'} = $object->getIP();
+        }
         if (null !== $object->getPrivatePort()) {
             $data->{'PrivatePort'} = $object->getPrivatePort();
         }

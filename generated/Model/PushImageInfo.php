@@ -11,15 +11,15 @@ class PushImageInfo
     /**
      * @var string
      */
-    protected $status;
-    /**
-     * @var string
-     */
     protected $progress;
     /**
      * @var ProgressDetail
      */
     protected $progressDetail;
+    /**
+     * @var string
+     */
+    protected $status;
 
     /**
      * @return string
@@ -37,26 +37,6 @@ class PushImageInfo
     public function setError($error = null)
     {
         $this->error = $error;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $status
-     *
-     * @return self
-     */
-    public function setStatus($status = null)
-    {
-        $this->status = $status;
 
         return $this;
     }
@@ -97,6 +77,26 @@ class PushImageInfo
     public function setProgressDetail(ProgressDetail $progressDetail = null)
     {
         $this->progressDetail = $progressDetail;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     *
+     * @return self
+     */
+    public function setStatus($status = null)
+    {
+        $this->status = $status;
 
         return $this;
     }

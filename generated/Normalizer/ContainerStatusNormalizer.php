@@ -30,20 +30,17 @@ class ContainerStatusNormalizer extends SerializerAwareNormalizer implements Den
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\ContainerStatus();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
-        }
         if (property_exists($data, 'ContainerID')) {
             $object->setContainerID($data->{'ContainerID'});
         }
-        if (property_exists($data, 'PID')) {
-            $object->setPID($data->{'PID'});
-        }
         if (property_exists($data, 'ExitCode')) {
             $object->setExitCode($data->{'ExitCode'});
+        }
+        if (property_exists($data, 'PID')) {
+            $object->setPID($data->{'PID'});
         }
 
         return $object;
@@ -55,11 +52,11 @@ class ContainerStatusNormalizer extends SerializerAwareNormalizer implements Den
         if (null !== $object->getContainerID()) {
             $data->{'ContainerID'} = $object->getContainerID();
         }
-        if (null !== $object->getPID()) {
-            $data->{'PID'} = $object->getPID();
-        }
         if (null !== $object->getExitCode()) {
             $data->{'ExitCode'} = $object->getExitCode();
+        }
+        if (null !== $object->getPID()) {
+            $data->{'PID'} = $object->getPID();
         }
 
         return $data;

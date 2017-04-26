@@ -30,42 +30,25 @@ class EndpointNormalizer extends SerializerAwareNormalizer implements Denormaliz
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\Endpoint();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
+        if (property_exists($data, 'Ports')) {
+            $values = [];
+            foreach ($data->{'Ports'} as $value) {
+                $values[] = $this->serializer->deserialize($value, 'Docker\\API\\Model\\EndpointPortConfig', 'raw', $context);
+            }
+            $object->setPorts($values);
         }
         if (property_exists($data, 'Spec')) {
             $object->setSpec($this->serializer->deserialize($data->{'Spec'}, 'Docker\\API\\Model\\EndpointSpec', 'raw', $context));
         }
-        if (property_exists($data, 'ExposedPorts')) {
-            $value = $data->{'ExposedPorts'};
-            if (is_array($data->{'ExposedPorts'})) {
-                $values = [];
-                foreach ($data->{'ExposedPorts'} as $value_1) {
-                    $values[] = $this->serializer->deserialize($value_1, 'Docker\\API\\Model\\PortConfig', 'raw', $context);
-                }
-                $value = $values;
-            }
-            if (is_null($data->{'ExposedPorts'})) {
-                $value = $data->{'ExposedPorts'};
-            }
-            $object->setExposedPorts($value);
-        }
         if (property_exists($data, 'VirtualIPs')) {
-            $value_2 = $data->{'VirtualIPs'};
-            if (is_array($data->{'VirtualIPs'})) {
-                $values_1 = [];
-                foreach ($data->{'VirtualIPs'} as $value_3) {
-                    $values_1[] = $this->serializer->deserialize($value_3, 'Docker\\API\\Model\\EndpointVirtualIP', 'raw', $context);
-                }
-                $value_2 = $values_1;
+            $values_1 = [];
+            foreach ($data->{'VirtualIPs'} as $value_1) {
+                $values_1[] = $this->serializer->deserialize($value_1, 'Docker\\API\\Model\\VirtualIPs', 'raw', $context);
             }
-            if (is_null($data->{'VirtualIPs'})) {
-                $value_2 = $data->{'VirtualIPs'};
-            }
-            $object->setVirtualIPs($value_2);
+            $object->setVirtualIPs($values_1);
         }
 
         return $object;
@@ -74,33 +57,23 @@ class EndpointNormalizer extends SerializerAwareNormalizer implements Denormaliz
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
+        if (null !== $object->getPorts()) {
+            $values = [];
+            foreach ($object->getPorts() as $value) {
+                $values[] = $this->serializer->serialize($value, 'raw', $context);
+            }
+            $data->{'Ports'} = $values;
+        }
         if (null !== $object->getSpec()) {
             $data->{'Spec'} = $this->serializer->serialize($object->getSpec(), 'raw', $context);
         }
-        $value = $object->getExposedPorts();
-        if (is_array($object->getExposedPorts())) {
-            $values = [];
-            foreach ($object->getExposedPorts() as $value_1) {
-                $values[] = $this->serializer->serialize($value_1, 'raw', $context);
-            }
-            $value = $values;
-        }
-        if (is_null($object->getExposedPorts())) {
-            $value = $object->getExposedPorts();
-        }
-        $data->{'ExposedPorts'} = $value;
-        $value_2                = $object->getVirtualIPs();
-        if (is_array($object->getVirtualIPs())) {
+        if (null !== $object->getVirtualIPs()) {
             $values_1 = [];
-            foreach ($object->getVirtualIPs() as $value_3) {
-                $values_1[] = $this->serializer->serialize($value_3, 'raw', $context);
+            foreach ($object->getVirtualIPs() as $value_1) {
+                $values_1[] = $this->serializer->serialize($value_1, 'raw', $context);
             }
-            $value_2 = $values_1;
+            $data->{'VirtualIPs'} = $values_1;
         }
-        if (is_null($object->getVirtualIPs())) {
-            $value_2 = $object->getVirtualIPs();
-        }
-        $data->{'VirtualIPs'} = $value_2;
 
         return $data;
     }

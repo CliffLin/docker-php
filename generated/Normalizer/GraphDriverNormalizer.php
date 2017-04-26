@@ -30,17 +30,18 @@ class GraphDriverNormalizer extends SerializerAwareNormalizer implements Denorma
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\GraphDriver();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
+        if (property_exists($data, 'Data')) {
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data->{'Data'} as $key => $value) {
+                $values[$key] = $value;
+            }
+            $object->setData($values);
         }
         if (property_exists($data, 'Name')) {
             $object->setName($data->{'Name'});
-        }
-        if (property_exists($data, 'Data')) {
-            $object->setData($data->{'Data'});
         }
 
         return $object;
@@ -49,11 +50,15 @@ class GraphDriverNormalizer extends SerializerAwareNormalizer implements Denorma
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
+        if (null !== $object->getData()) {
+            $values = new \stdClass();
+            foreach ($object->getData() as $key => $value) {
+                $values->{$key} = $value;
+            }
+            $data->{'Data'} = $values;
+        }
         if (null !== $object->getName()) {
             $data->{'Name'} = $object->getName();
-        }
-        if (null !== $object->getData()) {
-            $data->{'Data'} = $object->getData();
         }
 
         return $data;

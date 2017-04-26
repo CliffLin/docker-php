@@ -7,19 +7,59 @@ class NodeSpec
     /**
      * @var string
      */
+    protected $availability;
+    /**
+     * @var string[]
+     */
+    protected $labels;
+    /**
+     * @var string
+     */
     protected $name;
     /**
      * @var string
      */
     protected $role;
+
     /**
-     * @var string
+     * @return string
      */
-    protected $availability;
+    public function getAvailability()
+    {
+        return $this->availability;
+    }
+
     /**
-     * @var string[]|null
+     * @param string $availability
+     *
+     * @return self
      */
-    protected $labels;
+    public function setAvailability($availability = null)
+    {
+        $this->availability = $availability;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getLabels()
+    {
+        return $this->labels;
+    }
+
+    /**
+     * @param string[] $labels
+     *
+     * @return self
+     */
+    public function setLabels(\ArrayObject $labels = null)
+    {
+        $this->labels = $labels;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -57,46 +97,6 @@ class NodeSpec
     public function setRole($role = null)
     {
         $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAvailability()
-    {
-        return $this->availability;
-    }
-
-    /**
-     * @param string $availability
-     *
-     * @return self
-     */
-    public function setAvailability($availability = null)
-    {
-        $this->availability = $availability;
-
-        return $this;
-    }
-
-    /**
-     * @return string[]|null
-     */
-    public function getLabels()
-    {
-        return $this->labels;
-    }
-
-    /**
-     * @param string[]|null $labels
-     *
-     * @return self
-     */
-    public function setLabels($labels = null)
-    {
-        $this->labels = $labels;
 
         return $this;
     }

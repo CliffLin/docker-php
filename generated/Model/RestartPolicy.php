@@ -7,28 +7,36 @@ class RestartPolicy
     /**
      * @var string
      */
-    protected $name;
+    protected $condition;
     /**
      * @var int
      */
-    protected $maximumRetryCount;
+    protected $delay;
+    /**
+     * @var int
+     */
+    protected $maxAttempts;
+    /**
+     * @var int
+     */
+    protected $window;
 
     /**
      * @return string
      */
-    public function getName()
+    public function getCondition()
     {
-        return $this->name;
+        return $this->condition;
     }
 
     /**
-     * @param string $name
+     * @param string $condition
      *
      * @return self
      */
-    public function setName($name = null)
+    public function setCondition($condition = null)
     {
-        $this->name = $name;
+        $this->condition = $condition;
 
         return $this;
     }
@@ -36,19 +44,59 @@ class RestartPolicy
     /**
      * @return int
      */
-    public function getMaximumRetryCount()
+    public function getDelay()
     {
-        return $this->maximumRetryCount;
+        return $this->delay;
     }
 
     /**
-     * @param int $maximumRetryCount
+     * @param int $delay
      *
      * @return self
      */
-    public function setMaximumRetryCount($maximumRetryCount = null)
+    public function setDelay($delay = null)
     {
-        $this->maximumRetryCount = $maximumRetryCount;
+        $this->delay = $delay;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxAttempts()
+    {
+        return $this->maxAttempts;
+    }
+
+    /**
+     * @param int $maxAttempts
+     *
+     * @return self
+     */
+    public function setMaxAttempts($maxAttempts = null)
+    {
+        $this->maxAttempts = $maxAttempts;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWindow()
+    {
+        return $this->window;
+    }
+
+    /**
+     * @param int $window
+     *
+     * @return self
+     */
+    public function setWindow($window = null)
+    {
+        $this->window = $window;
 
         return $this;
     }

@@ -7,35 +7,67 @@ class Node
     /**
      * @var string
      */
-    protected $iD;
-    /**
-     * @var NodeVersion
-     */
-    protected $version;
-    /**
-     * @var \DateTime
-     */
     protected $createdAt;
     /**
-     * @var \DateTime
+     * @var Description
      */
-    protected $updatedAt;
+    protected $description;
+    /**
+     * @var string
+     */
+    protected $iD;
     /**
      * @var NodeSpec
      */
     protected $spec;
     /**
-     * @var NodeDescription
+     * @var string
      */
-    protected $description;
+    protected $updatedAt;
     /**
-     * @var NodeStatus
+     * @var ObjectVersion
      */
-    protected $status;
+    protected $version;
+
     /**
-     * @var NodeManagerStatus
+     * @return string
      */
-    protected $managerStatus;
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param string $createdAt
+     *
+     * @return self
+     */
+    public function setCreatedAt($createdAt = null)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Description
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param Description $description
+     *
+     * @return self
+     */
+    public function setDescription(Description $description = null)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -53,66 +85,6 @@ class Node
     public function setID($iD = null)
     {
         $this->iD = $iD;
-
-        return $this;
-    }
-
-    /**
-     * @return NodeVersion
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * @param NodeVersion $version
-     *
-     * @return self
-     */
-    public function setVersion(NodeVersion $version = null)
-    {
-        $this->version = $version;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     *
-     * @return self
-     */
-    public function setCreatedAt(\DateTime $createdAt = null)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     *
-     * @return self
-     */
-    public function setUpdatedAt(\DateTime $updatedAt = null)
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -138,61 +110,41 @@ class Node
     }
 
     /**
-     * @return NodeDescription
+     * @return string
      */
-    public function getDescription()
+    public function getUpdatedAt()
     {
-        return $this->description;
+        return $this->updatedAt;
     }
 
     /**
-     * @param NodeDescription $description
+     * @param string $updatedAt
      *
      * @return self
      */
-    public function setDescription(NodeDescription $description = null)
+    public function setUpdatedAt($updatedAt = null)
     {
-        $this->description = $description;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     /**
-     * @return NodeStatus
+     * @return ObjectVersion
      */
-    public function getStatus()
+    public function getVersion()
     {
-        return $this->status;
+        return $this->version;
     }
 
     /**
-     * @param NodeStatus $status
+     * @param ObjectVersion $version
      *
      * @return self
      */
-    public function setStatus(NodeStatus $status = null)
+    public function setVersion(ObjectVersion $version = null)
     {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * @return NodeManagerStatus
-     */
-    public function getManagerStatus()
-    {
-        return $this->managerStatus;
-    }
-
-    /**
-     * @param NodeManagerStatus $managerStatus
-     *
-     * @return self
-     */
-    public function setManagerStatus(NodeManagerStatus $managerStatus = null)
-    {
-        $this->managerStatus = $managerStatus;
+        $this->version = $version;
 
         return $this;
     }

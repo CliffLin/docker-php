@@ -30,26 +30,20 @@ class AuthConfigNormalizer extends SerializerAwareNormalizer implements Denormal
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\AuthConfig();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
-        }
-        if (property_exists($data, 'username')) {
-            $object->setUsername($data->{'username'});
+        if (property_exists($data, 'email')) {
+            $object->setEmail($data->{'email'});
         }
         if (property_exists($data, 'password')) {
             $object->setPassword($data->{'password'});
         }
-        if (property_exists($data, 'email')) {
-            $object->setEmail($data->{'email'});
-        }
         if (property_exists($data, 'serveraddress')) {
             $object->setServeraddress($data->{'serveraddress'});
         }
-        if (property_exists($data, 'registrytoken')) {
-            $object->setRegistrytoken($data->{'registrytoken'});
+        if (property_exists($data, 'username')) {
+            $object->setUsername($data->{'username'});
         }
 
         return $object;
@@ -58,20 +52,17 @@ class AuthConfigNormalizer extends SerializerAwareNormalizer implements Denormal
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
-        if (null !== $object->getUsername()) {
-            $data->{'username'} = $object->getUsername();
+        if (null !== $object->getEmail()) {
+            $data->{'email'} = $object->getEmail();
         }
         if (null !== $object->getPassword()) {
             $data->{'password'} = $object->getPassword();
         }
-        if (null !== $object->getEmail()) {
-            $data->{'email'} = $object->getEmail();
-        }
         if (null !== $object->getServeraddress()) {
             $data->{'serveraddress'} = $object->getServeraddress();
         }
-        if (null !== $object->getRegistrytoken()) {
-            $data->{'registrytoken'} = $object->getRegistrytoken();
+        if (null !== $object->getUsername()) {
+            $data->{'username'} = $object->getUsername();
         }
 
         return $data;

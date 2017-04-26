@@ -30,20 +30,21 @@ class IPAMConfigNormalizer extends SerializerAwareNormalizer implements Denormal
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\IPAMConfig();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
+        if (property_exists($data, 'IPv4Address')) {
+            $object->setIPv4Address($data->{'IPv4Address'});
         }
-        if (property_exists($data, 'Subnet')) {
-            $object->setSubnet($data->{'Subnet'});
+        if (property_exists($data, 'IPv6Address')) {
+            $object->setIPv6Address($data->{'IPv6Address'});
         }
-        if (property_exists($data, 'IPRange')) {
-            $object->setIPRange($data->{'IPRange'});
-        }
-        if (property_exists($data, 'Gateway')) {
-            $object->setGateway($data->{'Gateway'});
+        if (property_exists($data, 'LinkLocalIPs')) {
+            $values = [];
+            foreach ($data->{'LinkLocalIPs'} as $value) {
+                $values[] = $value;
+            }
+            $object->setLinkLocalIPs($values);
         }
 
         return $object;
@@ -52,14 +53,18 @@ class IPAMConfigNormalizer extends SerializerAwareNormalizer implements Denormal
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
-        if (null !== $object->getSubnet()) {
-            $data->{'Subnet'} = $object->getSubnet();
+        if (null !== $object->getIPv4Address()) {
+            $data->{'IPv4Address'} = $object->getIPv4Address();
         }
-        if (null !== $object->getIPRange()) {
-            $data->{'IPRange'} = $object->getIPRange();
+        if (null !== $object->getIPv6Address()) {
+            $data->{'IPv6Address'} = $object->getIPv6Address();
         }
-        if (null !== $object->getGateway()) {
-            $data->{'Gateway'} = $object->getGateway();
+        if (null !== $object->getLinkLocalIPs()) {
+            $values = [];
+            foreach ($object->getLinkLocalIPs() as $value) {
+                $values[] = $value;
+            }
+            $data->{'LinkLocalIPs'} = $values;
         }
 
         return $data;

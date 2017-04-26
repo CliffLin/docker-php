@@ -7,7 +7,7 @@ class AuthConfig
     /**
      * @var string
      */
-    protected $username;
+    protected $email;
     /**
      * @var string
      */
@@ -15,32 +15,28 @@ class AuthConfig
     /**
      * @var string
      */
-    protected $email;
-    /**
-     * @var string
-     */
     protected $serveraddress;
     /**
      * @var string
      */
-    protected $registrytoken;
+    protected $username;
 
     /**
      * @return string
      */
-    public function getUsername()
+    public function getEmail()
     {
-        return $this->username;
+        return $this->email;
     }
 
     /**
-     * @param string $username
+     * @param string $email
      *
      * @return self
      */
-    public function setUsername($username = null)
+    public function setEmail($email = null)
     {
-        $this->username = $username;
+        $this->email = $email;
 
         return $this;
     }
@@ -68,26 +64,6 @@ class AuthConfig
     /**
      * @return string
      */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     *
-     * @return self
-     */
-    public function setEmail($email = null)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getServeraddress()
     {
         return $this->serveraddress;
@@ -108,19 +84,19 @@ class AuthConfig
     /**
      * @return string
      */
-    public function getRegistrytoken()
+    public function getUsername()
     {
-        return $this->registrytoken;
+        return $this->username;
     }
 
     /**
-     * @param string $registrytoken
+     * @param string $username
      *
      * @return self
      */
-    public function setRegistrytoken($registrytoken = null)
+    public function setUsername($username = null)
     {
-        $this->registrytoken = $registrytoken;
+        $this->username = $username;
 
         return $this;
     }

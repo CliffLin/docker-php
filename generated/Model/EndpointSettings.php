@@ -5,21 +5,9 @@ namespace Docker\API\Model;
 class EndpointSettings
 {
     /**
-     * @var EndpointIPAMConfig
-     */
-    protected $iPAMConfig;
-    /**
-     * @var string[]
-     */
-    protected $links;
-    /**
      * @var string[]
      */
     protected $aliases;
-    /**
-     * @var string
-     */
-    protected $networkID;
     /**
      * @var string
      */
@@ -28,6 +16,18 @@ class EndpointSettings
      * @var string
      */
     protected $gateway;
+    /**
+     * @var string
+     */
+    protected $globalIPv6Address;
+    /**
+     * @var int
+     */
+    protected $globalIPv6PrefixLen;
+    /**
+     * @var IPAMConfig
+     */
+    protected $iPAMConfig;
     /**
      * @var string
      */
@@ -41,57 +41,17 @@ class EndpointSettings
      */
     protected $iPv6Gateway;
     /**
-     * @var string
+     * @var string[]
      */
-    protected $globalIPv6Address;
-    /**
-     * @var int
-     */
-    protected $globalIPv6PrefixLen;
+    protected $links;
     /**
      * @var string
      */
     protected $macAddress;
-
     /**
-     * @return EndpointIPAMConfig
+     * @var string
      */
-    public function getIPAMConfig()
-    {
-        return $this->iPAMConfig;
-    }
-
-    /**
-     * @param EndpointIPAMConfig $iPAMConfig
-     *
-     * @return self
-     */
-    public function setIPAMConfig(EndpointIPAMConfig $iPAMConfig = null)
-    {
-        $this->iPAMConfig = $iPAMConfig;
-
-        return $this;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getLinks()
-    {
-        return $this->links;
-    }
-
-    /**
-     * @param string[] $links
-     *
-     * @return self
-     */
-    public function setLinks(array $links = null)
-    {
-        $this->links = $links;
-
-        return $this;
-    }
+    protected $networkID;
 
     /**
      * @return string[]
@@ -109,26 +69,6 @@ class EndpointSettings
     public function setAliases(array $aliases = null)
     {
         $this->aliases = $aliases;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNetworkID()
-    {
-        return $this->networkID;
-    }
-
-    /**
-     * @param string $networkID
-     *
-     * @return self
-     */
-    public function setNetworkID($networkID = null)
-    {
-        $this->networkID = $networkID;
 
         return $this;
     }
@@ -169,6 +109,66 @@ class EndpointSettings
     public function setGateway($gateway = null)
     {
         $this->gateway = $gateway;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGlobalIPv6Address()
+    {
+        return $this->globalIPv6Address;
+    }
+
+    /**
+     * @param string $globalIPv6Address
+     *
+     * @return self
+     */
+    public function setGlobalIPv6Address($globalIPv6Address = null)
+    {
+        $this->globalIPv6Address = $globalIPv6Address;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGlobalIPv6PrefixLen()
+    {
+        return $this->globalIPv6PrefixLen;
+    }
+
+    /**
+     * @param int $globalIPv6PrefixLen
+     *
+     * @return self
+     */
+    public function setGlobalIPv6PrefixLen($globalIPv6PrefixLen = null)
+    {
+        $this->globalIPv6PrefixLen = $globalIPv6PrefixLen;
+
+        return $this;
+    }
+
+    /**
+     * @return IPAMConfig
+     */
+    public function getIPAMConfig()
+    {
+        return $this->iPAMConfig;
+    }
+
+    /**
+     * @param IPAMConfig $iPAMConfig
+     *
+     * @return self
+     */
+    public function setIPAMConfig(IPAMConfig $iPAMConfig = null)
+    {
+        $this->iPAMConfig = $iPAMConfig;
 
         return $this;
     }
@@ -234,41 +234,21 @@ class EndpointSettings
     }
 
     /**
-     * @return string
+     * @return string[]
      */
-    public function getGlobalIPv6Address()
+    public function getLinks()
     {
-        return $this->globalIPv6Address;
+        return $this->links;
     }
 
     /**
-     * @param string $globalIPv6Address
+     * @param string[] $links
      *
      * @return self
      */
-    public function setGlobalIPv6Address($globalIPv6Address = null)
+    public function setLinks(array $links = null)
     {
-        $this->globalIPv6Address = $globalIPv6Address;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getGlobalIPv6PrefixLen()
-    {
-        return $this->globalIPv6PrefixLen;
-    }
-
-    /**
-     * @param int $globalIPv6PrefixLen
-     *
-     * @return self
-     */
-    public function setGlobalIPv6PrefixLen($globalIPv6PrefixLen = null)
-    {
-        $this->globalIPv6PrefixLen = $globalIPv6PrefixLen;
+        $this->links = $links;
 
         return $this;
     }
@@ -289,6 +269,26 @@ class EndpointSettings
     public function setMacAddress($macAddress = null)
     {
         $this->macAddress = $macAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNetworkID()
+    {
+        return $this->networkID;
+    }
+
+    /**
+     * @param string $networkID
+     *
+     * @return self
+     */
+    public function setNetworkID($networkID = null)
+    {
+        $this->networkID = $networkID;
 
         return $this;
     }

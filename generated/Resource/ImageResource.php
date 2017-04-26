@@ -14,7 +14,7 @@ class ImageResource extends Resource
      *
      *     @var bool $all Show all images. Only images from a final layer (no children) are shown by default.
      *     @var string $filters A JSON encoded value of the filters (a map[string][]string) to process on the containers list
-     *     @var string $filter Only return images with the specified name.
+     *     @var string $filter only return images with the specified name
      *     @var bool $digests Show digest information, default to false
      * }
      *
@@ -51,25 +51,25 @@ class ImageResource extends Resource
     /**
      * Build an image from Dockerfile via stdin.
      *
-     * @param string $inputStream The input stream must be a tar archive compressed with one of the following algorithms: identity (no compression), gzip, bzip2, xz.
+     * @param string $inputStream the input stream must be a tar archive compressed with one of the following algorithms: identity (no compression), gzip, bzip2, xz
      * @param array  $parameters  {
      *
      *     @var string $dockerfile Path within the build context to the Dockerfile. This is ignored if remote is specified and points to an individual filename.
-     *     @var string $t A repository name (and optionally a tag) to apply to the resulting image in case of success.
+     *     @var string $t a repository name (and optionally a tag) to apply to the resulting image in case of success
      *     @var string $remote A Git repository URI or HTTP/HTTPS URI build source. If the URI specifies a filename, the file’s contents are placed into a file called Dockerfile.
-     *     @var bool $q Suppress verbose build output.
-     *     @var bool $nocache Do not use the cache when building the image.
+     *     @var bool $q suppress verbose build output
+     *     @var bool $nocache do not use the cache when building the image
      *     @var string $pull Attempt to pull the image even if an older image exists locally
-     *     @var bool $rm Remove intermediate containers after a successful build (default behavior).
+     *     @var bool $rm remove intermediate containers after a successful build (default behavior)
      *     @var bool $forcerm always remove intermediate containers (includes rm)
-     *     @var int $memory Set memory limit for build.
-     *     @var int $memswap Total memory (memory + swap), -1 to disable swap.
-     *     @var int $cpushares CPU shares (relative weight).
+     *     @var int $memory set memory limit for build
+     *     @var int $memswap total memory (memory + swap), -1 to disable swap
+     *     @var int $cpushares cPU shares (relative weight)
      *     @var string $cpusetcpus CPUs in which to allow execution (e.g., 0-3, 0,1).
-     *     @var int $cpuperiod The length of a CPU period in microseconds.
-     *     @var int $cpuquota Microseconds of CPU time that the container can get in a CPU period.
-     *     @var int $buildargs Total memory (memory + swap), -1 to disable swap.
-     *     @var string $Content-type  Set to 'application/tar'.
+     *     @var int $cpuperiod the length of a CPU period in microseconds
+     *     @var int $cpuquota microseconds of CPU time that the container can get in a CPU period
+     *     @var int $buildargs total memory (memory + swap), -1 to disable swap
+     *     @var string $Content-type  Set to 'application/tar'
      *     @var string $X-Registry-Config A base64-url-safe-encoded Registry Auth Config JSON object
      * }
      *
@@ -122,7 +122,7 @@ class ImageResource extends Resource
      *     @var string $fromImage Name of the image to pull. The name may include a tag or digest. This parameter may only be used when pulling an image.
      *     @var string $fromSrc Source to import. The value may be a URL from which the image can be retrieved or - to read the image from the request body. This parameter may only be used when importing an image.
      *     @var string $repo Repository name given to an image when it is imported. The repo may include a tag. This parameter may only be used when importing an image.
-     *     @var string $tag Tag or digest.
+     *     @var string $tag tag or digest
      *     @var string $X-Registry-Auth A base64-encoded AuthConfig object
      * }
      *
@@ -223,7 +223,7 @@ class ImageResource extends Resource
      * @param string $name       Image name or id
      * @param array  $parameters {
      *
-     *     @var string $tag The tag to associate with the image on the registry.
+     *     @var string $tag the tag to associate with the image on the registry
      *     @var string $X-Registry-Auth A base64-encoded AuthConfig object
      * }
      *
@@ -258,7 +258,7 @@ class ImageResource extends Resource
      * @param string $name       Image name or id
      * @param array  $parameters {
      *
-     *     @var string $repo The repository to tag in.
+     *     @var string $repo the repository to tag in
      *     @var string $tag The new tag name.
      * }
      *

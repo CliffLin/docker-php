@@ -7,43 +7,7 @@ class Image
     /**
      * @var string
      */
-    protected $id;
-    /**
-     * @var string
-     */
-    protected $container;
-    /**
-     * @var string
-     */
-    protected $comment;
-    /**
-     * @var string
-     */
-    protected $os;
-    /**
-     * @var string
-     */
     protected $architecture;
-    /**
-     * @var string
-     */
-    protected $parent;
-    /**
-     * @var ContainerConfig
-     */
-    protected $containerConfig;
-    /**
-     * @var string
-     */
-    protected $dockerVersion;
-    /**
-     * @var int
-     */
-    protected $virtualSize;
-    /**
-     * @var int
-     */
-    protected $size;
     /**
      * @var string
      */
@@ -51,103 +15,63 @@ class Image
     /**
      * @var string
      */
+    protected $comment;
+    /**
+     * @var Config
+     */
+    protected $config;
+    /**
+     * @var string
+     */
+    protected $container;
+    /**
+     * @var Config
+     */
+    protected $containerConfig;
+    /**
+     * @var string
+     */
     protected $created;
+    /**
+     * @var string
+     */
+    protected $dockerVersion;
     /**
      * @var GraphDriver
      */
     protected $graphDriver;
     /**
-     * @var string[]|null
+     * @var string
+     */
+    protected $id;
+    /**
+     * @var string
+     */
+    protected $os;
+    /**
+     * @var string
+     */
+    protected $parent;
+    /**
+     * @var string[]
      */
     protected $repoDigests;
     /**
-     * @var string[]|null
+     * @var string[]
      */
     protected $repoTags;
     /**
-     * @var ContainerConfig
+     * @var RootFS
      */
-    protected $config;
-
+    protected $rootFS;
     /**
-     * @return string
+     * @var int
      */
-    public function getId()
-    {
-        return $this->id;
-    }
-
+    protected $size;
     /**
-     * @param string $id
-     *
-     * @return self
+     * @var int
      */
-    public function setId($id = null)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
-    /**
-     * @param string $container
-     *
-     * @return self
-     */
-    public function setContainer($container = null)
-    {
-        $this->container = $container;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    /**
-     * @param string $comment
-     *
-     * @return self
-     */
-    public function setComment($comment = null)
-    {
-        $this->comment = $comment;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOs()
-    {
-        return $this->os;
-    }
-
-    /**
-     * @param string $os
-     *
-     * @return self
-     */
-    public function setOs($os = null)
-    {
-        $this->os = $os;
-
-        return $this;
-    }
+    protected $virtualSize;
 
     /**
      * @return string
@@ -165,106 +89,6 @@ class Image
     public function setArchitecture($architecture = null)
     {
         $this->architecture = $architecture;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @param string $parent
-     *
-     * @return self
-     */
-    public function setParent($parent = null)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * @return ContainerConfig
-     */
-    public function getContainerConfig()
-    {
-        return $this->containerConfig;
-    }
-
-    /**
-     * @param ContainerConfig $containerConfig
-     *
-     * @return self
-     */
-    public function setContainerConfig(ContainerConfig $containerConfig = null)
-    {
-        $this->containerConfig = $containerConfig;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDockerVersion()
-    {
-        return $this->dockerVersion;
-    }
-
-    /**
-     * @param string $dockerVersion
-     *
-     * @return self
-     */
-    public function setDockerVersion($dockerVersion = null)
-    {
-        $this->dockerVersion = $dockerVersion;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getVirtualSize()
-    {
-        return $this->virtualSize;
-    }
-
-    /**
-     * @param int $virtualSize
-     *
-     * @return self
-     */
-    public function setVirtualSize($virtualSize = null)
-    {
-        $this->virtualSize = $virtualSize;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * @param int $size
-     *
-     * @return self
-     */
-    public function setSize($size = null)
-    {
-        $this->size = $size;
 
         return $this;
     }
@@ -292,6 +116,86 @@ class Image
     /**
      * @return string
      */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string $comment
+     *
+     * @return self
+     */
+    public function setComment($comment = null)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * @return Config
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param Config $config
+     *
+     * @return self
+     */
+    public function setConfig(Config $config = null)
+    {
+        $this->config = $config;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * @param string $container
+     *
+     * @return self
+     */
+    public function setContainer($container = null)
+    {
+        $this->container = $container;
+
+        return $this;
+    }
+
+    /**
+     * @return Config
+     */
+    public function getContainerConfig()
+    {
+        return $this->containerConfig;
+    }
+
+    /**
+     * @param Config $containerConfig
+     *
+     * @return self
+     */
+    public function setContainerConfig(Config $containerConfig = null)
+    {
+        $this->containerConfig = $containerConfig;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getCreated()
     {
         return $this->created;
@@ -305,6 +209,26 @@ class Image
     public function setCreated($created = null)
     {
         $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDockerVersion()
+    {
+        return $this->dockerVersion;
+    }
+
+    /**
+     * @param string $dockerVersion
+     *
+     * @return self
+     */
+    public function setDockerVersion($dockerVersion = null)
+    {
+        $this->dockerVersion = $dockerVersion;
 
         return $this;
     }
@@ -330,7 +254,67 @@ class Image
     }
 
     /**
-     * @return string[]|null
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return self
+     */
+    public function setId($id = null)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOs()
+    {
+        return $this->os;
+    }
+
+    /**
+     * @param string $os
+     *
+     * @return self
+     */
+    public function setOs($os = null)
+    {
+        $this->os = $os;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param string $parent
+     *
+     * @return self
+     */
+    public function setParent($parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
      */
     public function getRepoDigests()
     {
@@ -338,11 +322,11 @@ class Image
     }
 
     /**
-     * @param string[]|null $repoDigests
+     * @param string[] $repoDigests
      *
      * @return self
      */
-    public function setRepoDigests($repoDigests = null)
+    public function setRepoDigests(array $repoDigests = null)
     {
         $this->repoDigests = $repoDigests;
 
@@ -350,7 +334,7 @@ class Image
     }
 
     /**
-     * @return string[]|null
+     * @return string[]
      */
     public function getRepoTags()
     {
@@ -358,11 +342,11 @@ class Image
     }
 
     /**
-     * @param string[]|null $repoTags
+     * @param string[] $repoTags
      *
      * @return self
      */
-    public function setRepoTags($repoTags = null)
+    public function setRepoTags(array $repoTags = null)
     {
         $this->repoTags = $repoTags;
 
@@ -370,21 +354,61 @@ class Image
     }
 
     /**
-     * @return ContainerConfig
+     * @return RootFS
      */
-    public function getConfig()
+    public function getRootFS()
     {
-        return $this->config;
+        return $this->rootFS;
     }
 
     /**
-     * @param ContainerConfig $config
+     * @param RootFS $rootFS
      *
      * @return self
      */
-    public function setConfig(ContainerConfig $config = null)
+    public function setRootFS(RootFS $rootFS = null)
     {
-        $this->config = $config;
+        $this->rootFS = $rootFS;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * @param int $size
+     *
+     * @return self
+     */
+    public function setSize($size = null)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVirtualSize()
+    {
+        return $this->virtualSize;
+    }
+
+    /**
+     * @param int $virtualSize
+     *
+     * @return self
+     */
+    public function setVirtualSize($virtualSize = null)
+    {
+        $this->virtualSize = $virtualSize;
 
         return $this;
     }

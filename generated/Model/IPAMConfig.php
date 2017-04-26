@@ -7,32 +7,32 @@ class IPAMConfig
     /**
      * @var string
      */
-    protected $subnet;
+    protected $iPv4Address;
     /**
      * @var string
      */
-    protected $iPRange;
+    protected $iPv6Address;
     /**
-     * @var string
+     * @var string[]
      */
-    protected $gateway;
+    protected $linkLocalIPs;
 
     /**
      * @return string
      */
-    public function getSubnet()
+    public function getIPv4Address()
     {
-        return $this->subnet;
+        return $this->iPv4Address;
     }
 
     /**
-     * @param string $subnet
+     * @param string $iPv4Address
      *
      * @return self
      */
-    public function setSubnet($subnet = null)
+    public function setIPv4Address($iPv4Address = null)
     {
-        $this->subnet = $subnet;
+        $this->iPv4Address = $iPv4Address;
 
         return $this;
     }
@@ -40,39 +40,39 @@ class IPAMConfig
     /**
      * @return string
      */
-    public function getIPRange()
+    public function getIPv6Address()
     {
-        return $this->iPRange;
+        return $this->iPv6Address;
     }
 
     /**
-     * @param string $iPRange
+     * @param string $iPv6Address
      *
      * @return self
      */
-    public function setIPRange($iPRange = null)
+    public function setIPv6Address($iPv6Address = null)
     {
-        $this->iPRange = $iPRange;
+        $this->iPv6Address = $iPv6Address;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return string[]
      */
-    public function getGateway()
+    public function getLinkLocalIPs()
     {
-        return $this->gateway;
+        return $this->linkLocalIPs;
     }
 
     /**
-     * @param string $gateway
+     * @param string[] $linkLocalIPs
      *
      * @return self
      */
-    public function setGateway($gateway = null)
+    public function setLinkLocalIPs(array $linkLocalIPs = null)
     {
-        $this->gateway = $gateway;
+        $this->linkLocalIPs = $linkLocalIPs;
 
         return $this;
     }

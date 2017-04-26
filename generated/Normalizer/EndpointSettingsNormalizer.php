@@ -30,37 +30,30 @@ class EndpointSettingsNormalizer extends SerializerAwareNormalizer implements De
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\EndpointSettings();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
-        }
-        if (property_exists($data, 'IPAMConfig')) {
-            $object->setIPAMConfig($this->serializer->deserialize($data->{'IPAMConfig'}, 'Docker\\API\\Model\\EndpointIPAMConfig', 'raw', $context));
-        }
-        if (property_exists($data, 'Links')) {
+        if (property_exists($data, 'Aliases')) {
             $values = [];
-            foreach ($data->{'Links'} as $value) {
+            foreach ($data->{'Aliases'} as $value) {
                 $values[] = $value;
             }
-            $object->setLinks($values);
-        }
-        if (property_exists($data, 'Aliases')) {
-            $values_1 = [];
-            foreach ($data->{'Aliases'} as $value_1) {
-                $values_1[] = $value_1;
-            }
-            $object->setAliases($values_1);
-        }
-        if (property_exists($data, 'NetworkID')) {
-            $object->setNetworkID($data->{'NetworkID'});
+            $object->setAliases($values);
         }
         if (property_exists($data, 'EndpointID')) {
             $object->setEndpointID($data->{'EndpointID'});
         }
         if (property_exists($data, 'Gateway')) {
             $object->setGateway($data->{'Gateway'});
+        }
+        if (property_exists($data, 'GlobalIPv6Address')) {
+            $object->setGlobalIPv6Address($data->{'GlobalIPv6Address'});
+        }
+        if (property_exists($data, 'GlobalIPv6PrefixLen')) {
+            $object->setGlobalIPv6PrefixLen($data->{'GlobalIPv6PrefixLen'});
+        }
+        if (property_exists($data, 'IPAMConfig')) {
+            $object->setIPAMConfig($this->serializer->deserialize($data->{'IPAMConfig'}, 'Docker\\API\\Model\\IPAMConfig', 'raw', $context));
         }
         if (property_exists($data, 'IPAddress')) {
             $object->setIPAddress($data->{'IPAddress'});
@@ -71,14 +64,18 @@ class EndpointSettingsNormalizer extends SerializerAwareNormalizer implements De
         if (property_exists($data, 'IPv6Gateway')) {
             $object->setIPv6Gateway($data->{'IPv6Gateway'});
         }
-        if (property_exists($data, 'GlobalIPv6Address')) {
-            $object->setGlobalIPv6Address($data->{'GlobalIPv6Address'});
-        }
-        if (property_exists($data, 'GlobalIPv6PrefixLen')) {
-            $object->setGlobalIPv6PrefixLen($data->{'GlobalIPv6PrefixLen'});
+        if (property_exists($data, 'Links')) {
+            $values_1 = [];
+            foreach ($data->{'Links'} as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $object->setLinks($values_1);
         }
         if (property_exists($data, 'MacAddress')) {
             $object->setMacAddress($data->{'MacAddress'});
+        }
+        if (property_exists($data, 'NetworkID')) {
+            $object->setNetworkID($data->{'NetworkID'});
         }
 
         return $object;
@@ -87,31 +84,27 @@ class EndpointSettingsNormalizer extends SerializerAwareNormalizer implements De
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
-        if (null !== $object->getIPAMConfig()) {
-            $data->{'IPAMConfig'} = $this->serializer->serialize($object->getIPAMConfig(), 'raw', $context);
-        }
-        if (null !== $object->getLinks()) {
+        if (null !== $object->getAliases()) {
             $values = [];
-            foreach ($object->getLinks() as $value) {
+            foreach ($object->getAliases() as $value) {
                 $values[] = $value;
             }
-            $data->{'Links'} = $values;
-        }
-        if (null !== $object->getAliases()) {
-            $values_1 = [];
-            foreach ($object->getAliases() as $value_1) {
-                $values_1[] = $value_1;
-            }
-            $data->{'Aliases'} = $values_1;
-        }
-        if (null !== $object->getNetworkID()) {
-            $data->{'NetworkID'} = $object->getNetworkID();
+            $data->{'Aliases'} = $values;
         }
         if (null !== $object->getEndpointID()) {
             $data->{'EndpointID'} = $object->getEndpointID();
         }
         if (null !== $object->getGateway()) {
             $data->{'Gateway'} = $object->getGateway();
+        }
+        if (null !== $object->getGlobalIPv6Address()) {
+            $data->{'GlobalIPv6Address'} = $object->getGlobalIPv6Address();
+        }
+        if (null !== $object->getGlobalIPv6PrefixLen()) {
+            $data->{'GlobalIPv6PrefixLen'} = $object->getGlobalIPv6PrefixLen();
+        }
+        if (null !== $object->getIPAMConfig()) {
+            $data->{'IPAMConfig'} = $this->serializer->serialize($object->getIPAMConfig(), 'raw', $context);
         }
         if (null !== $object->getIPAddress()) {
             $data->{'IPAddress'} = $object->getIPAddress();
@@ -122,14 +115,18 @@ class EndpointSettingsNormalizer extends SerializerAwareNormalizer implements De
         if (null !== $object->getIPv6Gateway()) {
             $data->{'IPv6Gateway'} = $object->getIPv6Gateway();
         }
-        if (null !== $object->getGlobalIPv6Address()) {
-            $data->{'GlobalIPv6Address'} = $object->getGlobalIPv6Address();
-        }
-        if (null !== $object->getGlobalIPv6PrefixLen()) {
-            $data->{'GlobalIPv6PrefixLen'} = $object->getGlobalIPv6PrefixLen();
+        if (null !== $object->getLinks()) {
+            $values_1 = [];
+            foreach ($object->getLinks() as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $data->{'Links'} = $values_1;
         }
         if (null !== $object->getMacAddress()) {
             $data->{'MacAddress'} = $object->getMacAddress();
+        }
+        if (null !== $object->getNetworkID()) {
+            $data->{'NetworkID'} = $object->getNetworkID();
         }
 
         return $data;

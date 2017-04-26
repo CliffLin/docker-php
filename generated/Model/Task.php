@@ -7,27 +7,27 @@ class Task
     /**
      * @var string
      */
-    protected $iD;
-    /**
-     * @var NodeVersion
-     */
-    protected $version;
-    /**
-     * @var \DateTime
-     */
     protected $createdAt;
     /**
-     * @var \DateTime
+     * @var string
      */
-    protected $updatedAt;
+    protected $desiredState;
+    /**
+     * @var string
+     */
+    protected $iD;
+    /**
+     * @var string[]
+     */
+    protected $labels;
     /**
      * @var string
      */
     protected $name;
     /**
-     * @var TaskSpec
+     * @var string
      */
-    protected $spec;
+    protected $nodeID;
     /**
      * @var string
      */
@@ -35,31 +35,63 @@ class Task
     /**
      * @var int
      */
-    protected $instance;
+    protected $slot;
     /**
-     * @var string
+     * @var TaskSpec
      */
-    protected $nodeID;
+    protected $spec;
     /**
-     * @var Annotations
-     */
-    protected $serviceAnnotations;
-    /**
-     * @var TaskStatus
+     * @var Status
      */
     protected $status;
     /**
      * @var string
      */
-    protected $desiredState;
+    protected $updatedAt;
     /**
-     * @var NetworkAttachment[]|null
+     * @var ObjectVersion
      */
-    protected $networksAttachments;
+    protected $version;
+
     /**
-     * @var Endpoint
+     * @return string
      */
-    protected $endpoint;
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param string $createdAt
+     *
+     * @return self
+     */
+    public function setCreatedAt($createdAt = null)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDesiredState()
+    {
+        return $this->desiredState;
+    }
+
+    /**
+     * @param string $desiredState
+     *
+     * @return self
+     */
+    public function setDesiredState($desiredState = null)
+    {
+        $this->desiredState = $desiredState;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -82,61 +114,21 @@ class Task
     }
 
     /**
-     * @return NodeVersion
+     * @return string[]
      */
-    public function getVersion()
+    public function getLabels()
     {
-        return $this->version;
+        return $this->labels;
     }
 
     /**
-     * @param NodeVersion $version
+     * @param string[] $labels
      *
      * @return self
      */
-    public function setVersion(NodeVersion $version = null)
+    public function setLabels(\ArrayObject $labels = null)
     {
-        $this->version = $version;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     *
-     * @return self
-     */
-    public function setCreatedAt(\DateTime $createdAt = null)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     *
-     * @return self
-     */
-    public function setUpdatedAt(\DateTime $updatedAt = null)
-    {
-        $this->updatedAt = $updatedAt;
+        $this->labels = $labels;
 
         return $this;
     }
@@ -162,21 +154,21 @@ class Task
     }
 
     /**
-     * @return TaskSpec
+     * @return string
      */
-    public function getSpec()
+    public function getNodeID()
     {
-        return $this->spec;
+        return $this->nodeID;
     }
 
     /**
-     * @param TaskSpec $spec
+     * @param string $nodeID
      *
      * @return self
      */
-    public function setSpec(TaskSpec $spec = null)
+    public function setNodeID($nodeID = null)
     {
-        $this->spec = $spec;
+        $this->nodeID = $nodeID;
 
         return $this;
     }
@@ -204,65 +196,45 @@ class Task
     /**
      * @return int
      */
-    public function getInstance()
+    public function getSlot()
     {
-        return $this->instance;
+        return $this->slot;
     }
 
     /**
-     * @param int $instance
+     * @param int $slot
      *
      * @return self
      */
-    public function setInstance($instance = null)
+    public function setSlot($slot = null)
     {
-        $this->instance = $instance;
+        $this->slot = $slot;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return TaskSpec
      */
-    public function getNodeID()
+    public function getSpec()
     {
-        return $this->nodeID;
+        return $this->spec;
     }
 
     /**
-     * @param string $nodeID
+     * @param TaskSpec $spec
      *
      * @return self
      */
-    public function setNodeID($nodeID = null)
+    public function setSpec(TaskSpec $spec = null)
     {
-        $this->nodeID = $nodeID;
+        $this->spec = $spec;
 
         return $this;
     }
 
     /**
-     * @return Annotations
-     */
-    public function getServiceAnnotations()
-    {
-        return $this->serviceAnnotations;
-    }
-
-    /**
-     * @param Annotations $serviceAnnotations
-     *
-     * @return self
-     */
-    public function setServiceAnnotations(Annotations $serviceAnnotations = null)
-    {
-        $this->serviceAnnotations = $serviceAnnotations;
-
-        return $this;
-    }
-
-    /**
-     * @return TaskStatus
+     * @return Status
      */
     public function getStatus()
     {
@@ -270,11 +242,11 @@ class Task
     }
 
     /**
-     * @param TaskStatus $status
+     * @param Status $status
      *
      * @return self
      */
-    public function setStatus(TaskStatus $status = null)
+    public function setStatus(Status $status = null)
     {
         $this->status = $status;
 
@@ -284,59 +256,39 @@ class Task
     /**
      * @return string
      */
-    public function getDesiredState()
+    public function getUpdatedAt()
     {
-        return $this->desiredState;
+        return $this->updatedAt;
     }
 
     /**
-     * @param string $desiredState
+     * @param string $updatedAt
      *
      * @return self
      */
-    public function setDesiredState($desiredState = null)
+    public function setUpdatedAt($updatedAt = null)
     {
-        $this->desiredState = $desiredState;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     /**
-     * @return NetworkAttachment[]|null
+     * @return ObjectVersion
      */
-    public function getNetworksAttachments()
+    public function getVersion()
     {
-        return $this->networksAttachments;
+        return $this->version;
     }
 
     /**
-     * @param NetworkAttachment[]|null $networksAttachments
+     * @param ObjectVersion $version
      *
      * @return self
      */
-    public function setNetworksAttachments($networksAttachments = null)
+    public function setVersion(ObjectVersion $version = null)
     {
-        $this->networksAttachments = $networksAttachments;
-
-        return $this;
-    }
-
-    /**
-     * @return Endpoint
-     */
-    public function getEndpoint()
-    {
-        return $this->endpoint;
-    }
-
-    /**
-     * @param Endpoint $endpoint
-     *
-     * @return self
-     */
-    public function setEndpoint(Endpoint $endpoint = null)
-    {
-        $this->endpoint = $endpoint;
+        $this->version = $version;
 
         return $this;
     }

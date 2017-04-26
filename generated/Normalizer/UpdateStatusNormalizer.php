@@ -30,23 +30,20 @@ class UpdateStatusNormalizer extends SerializerAwareNormalizer implements Denorm
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\UpdateStatus();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
-        }
-        if (property_exists($data, 'State')) {
-            $object->setState($data->{'State'});
-        }
-        if (property_exists($data, 'StartedAt')) {
-            $object->setStartedAt(\DateTime::createFromFormat("Y-m-d\TH:i:s.uuP", $data->{'StartedAt'}));
-        }
         if (property_exists($data, 'CompletedAt')) {
-            $object->setCompletedAt(\DateTime::createFromFormat("Y-m-d\TH:i:s.uuP", $data->{'CompletedAt'}));
+            $object->setCompletedAt($data->{'CompletedAt'});
         }
         if (property_exists($data, 'Message')) {
             $object->setMessage($data->{'Message'});
+        }
+        if (property_exists($data, 'StartedAt')) {
+            $object->setStartedAt($data->{'StartedAt'});
+        }
+        if (property_exists($data, 'State')) {
+            $object->setState($data->{'State'});
         }
 
         return $object;
@@ -55,17 +52,17 @@ class UpdateStatusNormalizer extends SerializerAwareNormalizer implements Denorm
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
-        if (null !== $object->getState()) {
-            $data->{'State'} = $object->getState();
-        }
-        if (null !== $object->getStartedAt()) {
-            $data->{'StartedAt'} = $object->getStartedAt()->format("Y-m-d\TH:i:s.uuP");
-        }
         if (null !== $object->getCompletedAt()) {
-            $data->{'CompletedAt'} = $object->getCompletedAt()->format("Y-m-d\TH:i:s.uuP");
+            $data->{'CompletedAt'} = $object->getCompletedAt();
         }
         if (null !== $object->getMessage()) {
             $data->{'Message'} = $object->getMessage();
+        }
+        if (null !== $object->getStartedAt()) {
+            $data->{'StartedAt'} = $object->getStartedAt();
+        }
+        if (null !== $object->getState()) {
+            $data->{'State'} = $object->getState();
         }
 
         return $data;

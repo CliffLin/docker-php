@@ -5,104 +5,80 @@ namespace Docker\API\Model;
 class ContainerSpec
 {
     /**
-     * @var string
-     */
-    protected $image;
-    /**
-     * @var string[]|null
-     */
-    protected $labels;
-    /**
-     * @var string[]|null
-     */
-    protected $command;
-    /**
-     * @var string[]|null
+     * @var string[]
      */
     protected $args;
     /**
-     * @var string[]|null
+     * @var string[]
      */
-    protected $env;
+    protected $command;
+    /**
+     * @var DNSConfig
+     */
+    protected $dNSConfig;
     /**
      * @var string
      */
     protected $dir;
     /**
+     * @var string[]
+     */
+    protected $env;
+    /**
+     * @var string[]
+     */
+    protected $groups;
+    /**
+     * @var HealthConfig
+     */
+    protected $healthCheck;
+    /**
      * @var string
      */
-    protected $user;
+    protected $hostname;
     /**
-     * @var ContainerSpecMount[]|null
+     * @var string[]
+     */
+    protected $hosts;
+    /**
+     * @var string
+     */
+    protected $image;
+    /**
+     * @var string[]
+     */
+    protected $labels;
+    /**
+     * @var Mount[]
      */
     protected $mounts;
+    /**
+     * @var bool
+     */
+    protected $openStdin;
+    /**
+     * @var bool
+     */
+    protected $readOnly;
+    /**
+     * @var Secrets[]
+     */
+    protected $secrets;
     /**
      * @var int
      */
     protected $stopGracePeriod;
-
     /**
-     * @return string
+     * @var bool
      */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
+    protected $tTY;
     /**
-     * @param string $image
-     *
-     * @return self
+     * @var string
      */
-    public function setImage($image = null)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
+    protected $user;
 
     /**
-     * @return string[]|null
-     */
-    public function getLabels()
-    {
-        return $this->labels;
-    }
-
-    /**
-     * @param string[]|null $labels
-     *
-     * @return self
-     */
-    public function setLabels($labels = null)
-    {
-        $this->labels = $labels;
-
-        return $this;
-    }
-
-    /**
-     * @return string[]|null
-     */
-    public function getCommand()
-    {
-        return $this->command;
-    }
-
-    /**
-     * @param string[]|null $command
-     *
-     * @return self
-     */
-    public function setCommand($command = null)
-    {
-        $this->command = $command;
-
-        return $this;
-    }
-
-    /**
-     * @return string[]|null
+     * @return string[]
      */
     public function getArgs()
     {
@@ -110,11 +86,11 @@ class ContainerSpec
     }
 
     /**
-     * @param string[]|null $args
+     * @param string[] $args
      *
      * @return self
      */
-    public function setArgs($args = null)
+    public function setArgs(array $args = null)
     {
         $this->args = $args;
 
@@ -122,21 +98,41 @@ class ContainerSpec
     }
 
     /**
-     * @return string[]|null
+     * @return string[]
      */
-    public function getEnv()
+    public function getCommand()
     {
-        return $this->env;
+        return $this->command;
     }
 
     /**
-     * @param string[]|null $env
+     * @param string[] $command
      *
      * @return self
      */
-    public function setEnv($env = null)
+    public function setCommand(array $command = null)
     {
-        $this->env = $env;
+        $this->command = $command;
+
+        return $this;
+    }
+
+    /**
+     * @return DNSConfig
+     */
+    public function getDNSConfig()
+    {
+        return $this->dNSConfig;
+    }
+
+    /**
+     * @param DNSConfig $dNSConfig
+     *
+     * @return self
+     */
+    public function setDNSConfig(DNSConfig $dNSConfig = null)
+    {
+        $this->dNSConfig = $dNSConfig;
 
         return $this;
     }
@@ -162,27 +158,147 @@ class ContainerSpec
     }
 
     /**
-     * @return string
+     * @return string[]
      */
-    public function getUser()
+    public function getEnv()
     {
-        return $this->user;
+        return $this->env;
     }
 
     /**
-     * @param string $user
+     * @param string[] $env
      *
      * @return self
      */
-    public function setUser($user = null)
+    public function setEnv(array $env = null)
     {
-        $this->user = $user;
+        $this->env = $env;
 
         return $this;
     }
 
     /**
-     * @return ContainerSpecMount[]|null
+     * @return string[]
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @param string[] $groups
+     *
+     * @return self
+     */
+    public function setGroups(array $groups = null)
+    {
+        $this->groups = $groups;
+
+        return $this;
+    }
+
+    /**
+     * @return HealthConfig
+     */
+    public function getHealthCheck()
+    {
+        return $this->healthCheck;
+    }
+
+    /**
+     * @param HealthConfig $healthCheck
+     *
+     * @return self
+     */
+    public function setHealthCheck(HealthConfig $healthCheck = null)
+    {
+        $this->healthCheck = $healthCheck;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHostname()
+    {
+        return $this->hostname;
+    }
+
+    /**
+     * @param string $hostname
+     *
+     * @return self
+     */
+    public function setHostname($hostname = null)
+    {
+        $this->hostname = $hostname;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getHosts()
+    {
+        return $this->hosts;
+    }
+
+    /**
+     * @param string[] $hosts
+     *
+     * @return self
+     */
+    public function setHosts(array $hosts = null)
+    {
+        $this->hosts = $hosts;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     *
+     * @return self
+     */
+    public function setImage($image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getLabels()
+    {
+        return $this->labels;
+    }
+
+    /**
+     * @param string[] $labels
+     *
+     * @return self
+     */
+    public function setLabels(\ArrayObject $labels = null)
+    {
+        $this->labels = $labels;
+
+        return $this;
+    }
+
+    /**
+     * @return Mount[]
      */
     public function getMounts()
     {
@@ -190,13 +306,73 @@ class ContainerSpec
     }
 
     /**
-     * @param ContainerSpecMount[]|null $mounts
+     * @param Mount[] $mounts
      *
      * @return self
      */
-    public function setMounts($mounts = null)
+    public function setMounts(array $mounts = null)
     {
         $this->mounts = $mounts;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getOpenStdin()
+    {
+        return $this->openStdin;
+    }
+
+    /**
+     * @param bool $openStdin
+     *
+     * @return self
+     */
+    public function setOpenStdin($openStdin = null)
+    {
+        $this->openStdin = $openStdin;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getReadOnly()
+    {
+        return $this->readOnly;
+    }
+
+    /**
+     * @param bool $readOnly
+     *
+     * @return self
+     */
+    public function setReadOnly($readOnly = null)
+    {
+        $this->readOnly = $readOnly;
+
+        return $this;
+    }
+
+    /**
+     * @return Secrets[]
+     */
+    public function getSecrets()
+    {
+        return $this->secrets;
+    }
+
+    /**
+     * @param Secrets[] $secrets
+     *
+     * @return self
+     */
+    public function setSecrets(array $secrets = null)
+    {
+        $this->secrets = $secrets;
 
         return $this;
     }
@@ -217,6 +393,46 @@ class ContainerSpec
     public function setStopGracePeriod($stopGracePeriod = null)
     {
         $this->stopGracePeriod = $stopGracePeriod;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getTTY()
+    {
+        return $this->tTY;
+    }
+
+    /**
+     * @param bool $tTY
+     *
+     * @return self
+     */
+    public function setTTY($tTY = null)
+    {
+        $this->tTY = $tTY;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param string $user
+     *
+     * @return self
+     */
+    public function setUser($user = null)
+    {
+        $this->user = $user;
 
         return $this;
     }

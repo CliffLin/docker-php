@@ -5,13 +5,17 @@ namespace Docker\API\Model;
 class ProcessConfig
 {
     /**
-     * @var bool
+     * @var string[]
      */
-    protected $privileged;
+    protected $arguments;
     /**
      * @var string
      */
-    protected $user;
+    protected $entrypoint;
+    /**
+     * @var bool
+     */
+    protected $privileged;
     /**
      * @var bool
      */
@@ -19,11 +23,47 @@ class ProcessConfig
     /**
      * @var string
      */
-    protected $entrypoint;
+    protected $user;
+
     /**
-     * @var string[]|null
+     * @return string[]
      */
-    protected $arguments;
+    public function getArguments()
+    {
+        return $this->arguments;
+    }
+
+    /**
+     * @param string[] $arguments
+     *
+     * @return self
+     */
+    public function setArguments(array $arguments = null)
+    {
+        $this->arguments = $arguments;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntrypoint()
+    {
+        return $this->entrypoint;
+    }
+
+    /**
+     * @param string $entrypoint
+     *
+     * @return self
+     */
+    public function setEntrypoint($entrypoint = null)
+    {
+        $this->entrypoint = $entrypoint;
+
+        return $this;
+    }
 
     /**
      * @return bool
@@ -41,26 +81,6 @@ class ProcessConfig
     public function setPrivileged($privileged = null)
     {
         $this->privileged = $privileged;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param string $user
-     *
-     * @return self
-     */
-    public function setUser($user = null)
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -88,39 +108,19 @@ class ProcessConfig
     /**
      * @return string
      */
-    public function getEntrypoint()
+    public function getUser()
     {
-        return $this->entrypoint;
+        return $this->user;
     }
 
     /**
-     * @param string $entrypoint
+     * @param string $user
      *
      * @return self
      */
-    public function setEntrypoint($entrypoint = null)
+    public function setUser($user = null)
     {
-        $this->entrypoint = $entrypoint;
-
-        return $this;
-    }
-
-    /**
-     * @return string[]|null
-     */
-    public function getArguments()
-    {
-        return $this->arguments;
-    }
-
-    /**
-     * @param string[]|null $arguments
-     *
-     * @return self
-     */
-    public function setArguments($arguments = null)
-    {
-        $this->arguments = $arguments;
+        $this->user = $user;
 
         return $this;
     }

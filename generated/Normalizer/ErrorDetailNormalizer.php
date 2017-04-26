@@ -30,12 +30,9 @@ class ErrorDetailNormalizer extends SerializerAwareNormalizer implements Denorma
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\ErrorDetail();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
-        }
         if (property_exists($data, 'code')) {
             $object->setCode($data->{'code'});
         }

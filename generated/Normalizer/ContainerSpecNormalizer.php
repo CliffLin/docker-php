@@ -30,93 +30,94 @@ class ContainerSpecNormalizer extends SerializerAwareNormalizer implements Denor
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\ContainerSpec();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
+        if (property_exists($data, 'Args')) {
+            $values = [];
+            foreach ($data->{'Args'} as $value) {
+                $values[] = $value;
+            }
+            $object->setArgs($values);
+        }
+        if (property_exists($data, 'Command')) {
+            $values_1 = [];
+            foreach ($data->{'Command'} as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $object->setCommand($values_1);
+        }
+        if (property_exists($data, 'DNSConfig')) {
+            $object->setDNSConfig($this->serializer->deserialize($data->{'DNSConfig'}, 'Docker\\API\\Model\\DNSConfig', 'raw', $context));
+        }
+        if (property_exists($data, 'Dir')) {
+            $object->setDir($data->{'Dir'});
+        }
+        if (property_exists($data, 'Env')) {
+            $values_2 = [];
+            foreach ($data->{'Env'} as $value_2) {
+                $values_2[] = $value_2;
+            }
+            $object->setEnv($values_2);
+        }
+        if (property_exists($data, 'Groups')) {
+            $values_3 = [];
+            foreach ($data->{'Groups'} as $value_3) {
+                $values_3[] = $value_3;
+            }
+            $object->setGroups($values_3);
+        }
+        if (property_exists($data, 'HealthCheck')) {
+            $object->setHealthCheck($this->serializer->deserialize($data->{'HealthCheck'}, 'Docker\\API\\Model\\HealthConfig', 'raw', $context));
+        }
+        if (property_exists($data, 'Hostname')) {
+            $object->setHostname($data->{'Hostname'});
+        }
+        if (property_exists($data, 'Hosts')) {
+            $values_4 = [];
+            foreach ($data->{'Hosts'} as $value_4) {
+                $values_4[] = $value_4;
+            }
+            $object->setHosts($values_4);
         }
         if (property_exists($data, 'Image')) {
             $object->setImage($data->{'Image'});
         }
         if (property_exists($data, 'Labels')) {
-            $value = $data->{'Labels'};
-            if (is_object($data->{'Labels'})) {
-                $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-                foreach ($data->{'Labels'} as $key => $value_1) {
-                    $values[$key] = $value_1;
-                }
-                $value = $values;
+            $values_5 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data->{'Labels'} as $key => $value_5) {
+                $values_5[$key] = $value_5;
             }
-            if (is_null($data->{'Labels'})) {
-                $value = $data->{'Labels'};
-            }
-            $object->setLabels($value);
-        }
-        if (property_exists($data, 'Command')) {
-            $value_2 = $data->{'Command'};
-            if (is_array($data->{'Command'})) {
-                $values_1 = [];
-                foreach ($data->{'Command'} as $value_3) {
-                    $values_1[] = $value_3;
-                }
-                $value_2 = $values_1;
-            }
-            if (is_null($data->{'Command'})) {
-                $value_2 = $data->{'Command'};
-            }
-            $object->setCommand($value_2);
-        }
-        if (property_exists($data, 'Args')) {
-            $value_4 = $data->{'Args'};
-            if (is_array($data->{'Args'})) {
-                $values_2 = [];
-                foreach ($data->{'Args'} as $value_5) {
-                    $values_2[] = $value_5;
-                }
-                $value_4 = $values_2;
-            }
-            if (is_null($data->{'Args'})) {
-                $value_4 = $data->{'Args'};
-            }
-            $object->setArgs($value_4);
-        }
-        if (property_exists($data, 'Env')) {
-            $value_6 = $data->{'Env'};
-            if (is_array($data->{'Env'})) {
-                $values_3 = [];
-                foreach ($data->{'Env'} as $value_7) {
-                    $values_3[] = $value_7;
-                }
-                $value_6 = $values_3;
-            }
-            if (is_null($data->{'Env'})) {
-                $value_6 = $data->{'Env'};
-            }
-            $object->setEnv($value_6);
-        }
-        if (property_exists($data, 'Dir')) {
-            $object->setDir($data->{'Dir'});
-        }
-        if (property_exists($data, 'User')) {
-            $object->setUser($data->{'User'});
+            $object->setLabels($values_5);
         }
         if (property_exists($data, 'Mounts')) {
-            $value_8 = $data->{'Mounts'};
-            if (is_array($data->{'Mounts'})) {
-                $values_4 = [];
-                foreach ($data->{'Mounts'} as $value_9) {
-                    $values_4[] = $this->serializer->deserialize($value_9, 'Docker\\API\\Model\\ContainerSpecMount', 'raw', $context);
-                }
-                $value_8 = $values_4;
+            $values_6 = [];
+            foreach ($data->{'Mounts'} as $value_6) {
+                $values_6[] = $this->serializer->deserialize($value_6, 'Docker\\API\\Model\\Mount', 'raw', $context);
             }
-            if (is_null($data->{'Mounts'})) {
-                $value_8 = $data->{'Mounts'};
+            $object->setMounts($values_6);
+        }
+        if (property_exists($data, 'OpenStdin')) {
+            $object->setOpenStdin($data->{'OpenStdin'});
+        }
+        if (property_exists($data, 'ReadOnly')) {
+            $object->setReadOnly($data->{'ReadOnly'});
+        }
+        if (property_exists($data, 'Secrets')) {
+            $values_7 = [];
+            foreach ($data->{'Secrets'} as $value_7) {
+                $values_7[] = $this->serializer->deserialize($value_7, 'Docker\\API\\Model\\Secrets', 'raw', $context);
             }
-            $object->setMounts($value_8);
+            $object->setSecrets($values_7);
         }
         if (property_exists($data, 'StopGracePeriod')) {
             $object->setStopGracePeriod($data->{'StopGracePeriod'});
+        }
+        if (property_exists($data, 'TTY')) {
+            $object->setTTY($data->{'TTY'});
+        }
+        if (property_exists($data, 'User')) {
+            $object->setUser($data->{'User'});
         }
 
         return $object;
@@ -125,77 +126,91 @@ class ContainerSpecNormalizer extends SerializerAwareNormalizer implements Denor
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
-        if (null !== $object->getImage()) {
-            $data->{'Image'} = $object->getImage();
-        }
-        $value = $object->getLabels();
-        if (is_object($object->getLabels())) {
-            $values = new \stdClass();
-            foreach ($object->getLabels() as $key => $value_1) {
-                $values->{$key} = $value_1;
+        if (null !== $object->getArgs()) {
+            $values = [];
+            foreach ($object->getArgs() as $value) {
+                $values[] = $value;
             }
-            $value = $values;
+            $data->{'Args'} = $values;
         }
-        if (is_null($object->getLabels())) {
-            $value = $object->getLabels();
-        }
-        $data->{'Labels'} = $value;
-        $value_2          = $object->getCommand();
-        if (is_array($object->getCommand())) {
+        if (null !== $object->getCommand()) {
             $values_1 = [];
-            foreach ($object->getCommand() as $value_3) {
-                $values_1[] = $value_3;
+            foreach ($object->getCommand() as $value_1) {
+                $values_1[] = $value_1;
             }
-            $value_2 = $values_1;
+            $data->{'Command'} = $values_1;
         }
-        if (is_null($object->getCommand())) {
-            $value_2 = $object->getCommand();
+        if (null !== $object->getDNSConfig()) {
+            $data->{'DNSConfig'} = $this->serializer->serialize($object->getDNSConfig(), 'raw', $context);
         }
-        $data->{'Command'} = $value_2;
-        $value_4           = $object->getArgs();
-        if (is_array($object->getArgs())) {
-            $values_2 = [];
-            foreach ($object->getArgs() as $value_5) {
-                $values_2[] = $value_5;
-            }
-            $value_4 = $values_2;
-        }
-        if (is_null($object->getArgs())) {
-            $value_4 = $object->getArgs();
-        }
-        $data->{'Args'} = $value_4;
-        $value_6        = $object->getEnv();
-        if (is_array($object->getEnv())) {
-            $values_3 = [];
-            foreach ($object->getEnv() as $value_7) {
-                $values_3[] = $value_7;
-            }
-            $value_6 = $values_3;
-        }
-        if (is_null($object->getEnv())) {
-            $value_6 = $object->getEnv();
-        }
-        $data->{'Env'} = $value_6;
         if (null !== $object->getDir()) {
             $data->{'Dir'} = $object->getDir();
         }
-        if (null !== $object->getUser()) {
-            $data->{'User'} = $object->getUser();
-        }
-        $value_8 = $object->getMounts();
-        if (is_array($object->getMounts())) {
-            $values_4 = [];
-            foreach ($object->getMounts() as $value_9) {
-                $values_4[] = $this->serializer->serialize($value_9, 'raw', $context);
+        if (null !== $object->getEnv()) {
+            $values_2 = [];
+            foreach ($object->getEnv() as $value_2) {
+                $values_2[] = $value_2;
             }
-            $value_8 = $values_4;
+            $data->{'Env'} = $values_2;
         }
-        if (is_null($object->getMounts())) {
-            $value_8 = $object->getMounts();
+        if (null !== $object->getGroups()) {
+            $values_3 = [];
+            foreach ($object->getGroups() as $value_3) {
+                $values_3[] = $value_3;
+            }
+            $data->{'Groups'} = $values_3;
         }
-        $data->{'Mounts'} = $value_8;
+        if (null !== $object->getHealthCheck()) {
+            $data->{'HealthCheck'} = $this->serializer->serialize($object->getHealthCheck(), 'raw', $context);
+        }
+        if (null !== $object->getHostname()) {
+            $data->{'Hostname'} = $object->getHostname();
+        }
+        if (null !== $object->getHosts()) {
+            $values_4 = [];
+            foreach ($object->getHosts() as $value_4) {
+                $values_4[] = $value_4;
+            }
+            $data->{'Hosts'} = $values_4;
+        }
+        if (null !== $object->getImage()) {
+            $data->{'Image'} = $object->getImage();
+        }
+        if (null !== $object->getLabels()) {
+            $values_5 = new \stdClass();
+            foreach ($object->getLabels() as $key => $value_5) {
+                $values_5->{$key} = $value_5;
+            }
+            $data->{'Labels'} = $values_5;
+        }
+        if (null !== $object->getMounts()) {
+            $values_6 = [];
+            foreach ($object->getMounts() as $value_6) {
+                $values_6[] = $this->serializer->serialize($value_6, 'raw', $context);
+            }
+            $data->{'Mounts'} = $values_6;
+        }
+        if (null !== $object->getOpenStdin()) {
+            $data->{'OpenStdin'} = $object->getOpenStdin();
+        }
+        if (null !== $object->getReadOnly()) {
+            $data->{'ReadOnly'} = $object->getReadOnly();
+        }
+        if (null !== $object->getSecrets()) {
+            $values_7 = [];
+            foreach ($object->getSecrets() as $value_7) {
+                $values_7[] = $this->serializer->serialize($value_7, 'raw', $context);
+            }
+            $data->{'Secrets'} = $values_7;
+        }
         if (null !== $object->getStopGracePeriod()) {
             $data->{'StopGracePeriod'} = $object->getStopGracePeriod();
+        }
+        if (null !== $object->getTTY()) {
+            $data->{'TTY'} = $object->getTTY();
+        }
+        if (null !== $object->getUser()) {
+            $data->{'User'} = $object->getUser();
         }
 
         return $data;

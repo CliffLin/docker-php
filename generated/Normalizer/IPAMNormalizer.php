@@ -30,42 +30,33 @@ class IPAMNormalizer extends SerializerAwareNormalizer implements DenormalizerIn
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->{'$ref'})) {
-            return new Reference($data->{'$ref'}, $context['rootSchema'] ?: null);
+            return new Reference($data->{'$ref'}, $context['document-origin']);
         }
         $object = new \Docker\API\Model\IPAM();
-        if (!isset($context['rootSchema'])) {
-            $context['rootSchema'] = $object;
+        if (property_exists($data, 'Config')) {
+            $values = [];
+            foreach ($data->{'Config'} as $value) {
+                $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+                foreach ($value as $key => $value_1) {
+                    $values_1[$key] = $value_1;
+                }
+                $values[] = $values_1;
+            }
+            $object->setConfig($values);
         }
         if (property_exists($data, 'Driver')) {
             $object->setDriver($data->{'Driver'});
         }
-        if (property_exists($data, 'Config')) {
-            $value = $data->{'Config'};
-            if (is_array($data->{'Config'})) {
-                $values = [];
-                foreach ($data->{'Config'} as $value_1) {
-                    $values[] = $this->serializer->deserialize($value_1, 'Docker\\API\\Model\\IPAMConfig', 'raw', $context);
-                }
-                $value = $values;
-            }
-            if (is_null($data->{'Config'})) {
-                $value = $data->{'Config'};
-            }
-            $object->setConfig($value);
-        }
         if (property_exists($data, 'Options')) {
-            $value_2 = $data->{'Options'};
-            if (is_object($data->{'Options'})) {
-                $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-                foreach ($data->{'Options'} as $key => $value_3) {
-                    $values_1[$key] = $value_3;
+            $values_2 = [];
+            foreach ($data->{'Options'} as $value_2) {
+                $values_3 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+                foreach ($value_2 as $key_1 => $value_3) {
+                    $values_3[$key_1] = $value_3;
                 }
-                $value_2 = $values_1;
+                $values_2[] = $values_3;
             }
-            if (is_null($data->{'Options'})) {
-                $value_2 = $data->{'Options'};
-            }
-            $object->setOptions($value_2);
+            $object->setOptions($values_2);
         }
 
         return $object;
@@ -74,33 +65,31 @@ class IPAMNormalizer extends SerializerAwareNormalizer implements DenormalizerIn
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
+        if (null !== $object->getConfig()) {
+            $values = [];
+            foreach ($object->getConfig() as $value) {
+                $values_1 = new \stdClass();
+                foreach ($value as $key => $value_1) {
+                    $values_1->{$key} = $value_1;
+                }
+                $values[] = $values_1;
+            }
+            $data->{'Config'} = $values;
+        }
         if (null !== $object->getDriver()) {
             $data->{'Driver'} = $object->getDriver();
         }
-        $value = $object->getConfig();
-        if (is_array($object->getConfig())) {
-            $values = [];
-            foreach ($object->getConfig() as $value_1) {
-                $values[] = $this->serializer->serialize($value_1, 'raw', $context);
+        if (null !== $object->getOptions()) {
+            $values_2 = [];
+            foreach ($object->getOptions() as $value_2) {
+                $values_3 = new \stdClass();
+                foreach ($value_2 as $key_1 => $value_3) {
+                    $values_3->{$key_1} = $value_3;
+                }
+                $values_2[] = $values_3;
             }
-            $value = $values;
+            $data->{'Options'} = $values_2;
         }
-        if (is_null($object->getConfig())) {
-            $value = $object->getConfig();
-        }
-        $data->{'Config'} = $value;
-        $value_2          = $object->getOptions();
-        if (is_object($object->getOptions())) {
-            $values_1 = new \stdClass();
-            foreach ($object->getOptions() as $key => $value_3) {
-                $values_1->{$key} = $value_3;
-            }
-            $value_2 = $values_1;
-        }
-        if (is_null($object->getOptions())) {
-            $value_2 = $object->getOptions();
-        }
-        $data->{'Options'} = $value_2;
 
         return $data;
     }
